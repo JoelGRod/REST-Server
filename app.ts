@@ -1,20 +1,10 @@
-// External Packages
-import express from "express";
-// Interfaces
-import { Request, Response } from "express";
 // Environment
 require("dotenv").config();
+// Server
+import Server from "./infrastructure/Server";
 
 // Server init
-const app = express();
-const port: string | undefined = process.env.PORT;
-
-// Main routes
-app.get("/", (req: Request, res: Response) => {
-    res.send("<h1>Hello World</h1>");
-});
+const server = Server.getInstance;
 
 // Server Up
-app.listen(port, () => {
-  console.log(`Server stated at port: ${port}`);
-});
+server.startServer();
