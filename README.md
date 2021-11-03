@@ -1,6 +1,6 @@
 # REST Server with NodeJs and Express
 
-* Starter REST server with NodeJs and express using Typescript.
+Starter REST server with NodeJs and express using Typescript.
 
 ## Usage:
 

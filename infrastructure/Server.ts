@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 // Interfaces
 import { Request, Response } from "express";
-// Routes
+// Domain Routers
 import testRouter from "../domains/test/router";
 
 
@@ -41,8 +41,11 @@ class Server {
 
   // Middlewares
   private defineInitMiddlewares(): void {
-      this._app.use(cors());
-      // TODO BODYPARSER
+    // Cors  
+    this._app.use(cors());
+    // Bodyparser
+    this._app.use( express.json() );
+    this._app.use( express.urlencoded({ extended: true }) );
   }
 
   private definePublic(): void {

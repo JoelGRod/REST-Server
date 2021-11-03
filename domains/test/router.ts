@@ -8,7 +8,7 @@ const testRouter = Router();
 // Routes
 testRouter.get("/", [], responses.getRequest);
 testRouter.post("/", [], responses.postRequest);
-testRouter.put("/", [], responses.putRequest);
+testRouter.put("/:id", [], responses.putRequest);
 testRouter.delete("/", [], responses.deleteRequest);
 
 export default testRouter;
