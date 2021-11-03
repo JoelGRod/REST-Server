@@ -1,21 +1,26 @@
 // External Packages
 import express from "express";
+import cors from "cors";
 // Interfaces
 import { Request, Response } from "express";
+// Routes
+import testRouter from "../domains/test/router";
+
 
 class Server {
   // Singleton
   private static _instance: Server;
 
   // Express App
-  private app: express.Application;
-  private port: string | undefined;
+  private _app: express.Application;
+  private _port: string | undefined;
 
   private constructor() {
-    this.app = express();
-    this.port = process.env.PORT;
+    this._app = express();
+    this._port = process.env.PORT;
 
     // Middlewares
+    this.defineInitMiddlewares();
     // Main routes
     this.defineRoutes();
     // Public folder
@@ -31,31 +36,29 @@ class Server {
 
   // Main routes
   private defineRoutes(): void {
-    this.app.get("/api", (req: Request, res: Response) => {
-      res.send("<h1>Hello World</h1>");
-    });
+    this._app.use("/api/test", testRouter);
   }
 
   // Middlewares
   private defineInitMiddlewares(): void {
-      // TODO CORS
+      this._app.use(cors());
       // TODO BODYPARSER
   }
 
   private definePublic(): void {
-    this.app.use(express.static("public"));
+    this._app.use(express.static("public"));
   }
 
   // Extra routes
   private defineExtraRoutes(): void {
-    this.app.get("*", (req: Request, res: Response) => {
+    this._app.get("*", (req: Request, res: Response) => {
       res.send("<h1>404 - Bad Request</h1>");
     });
   }
 
   public startServer(): void {
-    this.app.listen(this.port, () => {
-      console.log(`Server stated at port: ${this.port}`);
+    this._app.listen(this._port, () => {
+      console.log(`Server stated at port: ${this._port}`);
     });
   }
 }
