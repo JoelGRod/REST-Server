@@ -3,9 +3,11 @@ import express from "express";
 import cors from "cors";
 // Interfaces
 import { Request, Response } from "express";
+// Db
+import dbConnection from "./db/db.config";
 // Domain Routers
 import testRouter from "../domains/test/router";
-
+import userRouter from "../domains/user/router";
 
 class Server {
   // Singleton
@@ -19,6 +21,8 @@ class Server {
     this._app = express();
     this._port = process.env.PORT;
 
+    // Db connection
+    dbConnection();
     // Middlewares
     this.defineInitMiddlewares();
     // Main routes
@@ -37,15 +41,16 @@ class Server {
   // Main routes
   private defineRoutes(): void {
     this._app.use("/api/test", testRouter);
+    this._app.use("/api/user", userRouter);
   }
 
   // Middlewares
   private defineInitMiddlewares(): void {
-    // Cors  
+    // Cors
     this._app.use(cors());
     // Bodyparser
-    this._app.use( express.json() );
-    this._app.use( express.urlencoded({ extended: true }) );
+    this._app.use(express.json());
+    this._app.use(express.urlencoded({ extended: true }));
   }
 
   private definePublic(): void {
