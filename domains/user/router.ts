@@ -1,10 +1,11 @@
 // External Packages
 import { Router } from "express";
 import { check } from "express-validator";
+// Validators
+import emailExists from "./validators/emailExists";
+import checkRole from "./validators/checkRole";
 // Middlewares
 import lastValidator from "./middlewares/lastValidator";
-import emailExists from "./middlewares/emailExists";
-import checkRole from "./middlewares/checkRole";
 import encryptPassword from "./middlewares/encryptPassword";
 // Controllers
 import * as create from "./controllers/createUser";
@@ -20,7 +21,7 @@ userRouter.post(
       .isEmail().custom(emailExists),
     check("password", "Password is required")
       .isLength({ min: 6 }),
-    check("role", "Role error")
+    check("role", "Invalid Role")
       .toUpperCase().custom(checkRole),
     lastValidator,
     encryptPassword,
