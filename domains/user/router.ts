@@ -4,8 +4,8 @@ import { check } from "express-validator";
 // Middlewares
 import lastValidator from "./middlewares/lastValidator";
 import emailExists from "./middlewares/emailExists";
-import encryptPassword from "./middlewares/encryptPassword";
 import checkRole from "./middlewares/checkRole";
+import encryptPassword from "./middlewares/encryptPassword";
 // Controllers
 import * as create from "./controllers/createUser";
 // Router instance
