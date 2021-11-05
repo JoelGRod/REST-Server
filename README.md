@@ -1,10 +1,16 @@
 # REST Server with NodeJs and Express
 
-Starter REST server with NodeJs and express using Typescript.
+Starter REST server 
+* NodeJs
+* Express
+* Mongo - Mongoose
+* Typescript
 
 ## Usage:
 
-* Create .env file and set development port
+* Create .env file and set:
+    * Development port
+    * Mongo Atlas connection URL
 * Install node dependency packages: npm install
 * Transpile typescript code using tsc
 
