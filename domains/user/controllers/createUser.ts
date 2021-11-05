@@ -1,6 +1,5 @@
 // Models
 import User from "../models/User";
-// Pkg
 // Interfaces
 import { Request, Response } from "express";
 

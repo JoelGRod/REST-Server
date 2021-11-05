@@ -5,6 +5,7 @@ import { check } from "express-validator";
 import lastValidator from "./middlewares/lastValidator";
 import emailExists from "./middlewares/emailExists";
 import encryptPassword from "./middlewares/encryptPassword";
+import checkRole from "./middlewares/checkRole";
 // Controllers
 import * as create from "./controllers/createUser";
 // Router instance
@@ -16,13 +17,11 @@ userRouter.post(
     check("name", "Name is required")
       .notEmpty().trim(),
     check("email", "Email is required")
-      .isEmail(),
+      .isEmail().custom(emailExists),
     check("password", "Password is required")
       .isLength({ min: 6 }),
     check("role", "Role error")
-      .toUpperCase()
-      .custom((value) => ["ADMIN", "USER"].includes(value)),
-    emailExists,
+      .toUpperCase().custom(checkRole),
     lastValidator,
     encryptPassword,
   ],
