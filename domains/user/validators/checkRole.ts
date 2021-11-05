@@ -1,7 +1,9 @@
+// Models
+import Role from "../models/Role";
 
-const checkRole = ( value: string ) => {
-    const validRoles = ["ADMIN", "USER"];
-    if( validRoles.includes(value) ) return true;
+const checkRole = async ( role: string ) => {
+    const validRole = await Role.findOne({ role });
+    if( validRole ) return true;
     throw new Error("Invalid Role");
 }
 
