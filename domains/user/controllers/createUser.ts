@@ -12,7 +12,8 @@ export const createUser = async (req: Request, res: Response) => {
         await userDb.save();
         return res.status(201).json({
             ok: true,
-            msg: "User created"
+            msg: "User created",
+            userDb
         });
     } catch (error) {
         return res.status(500).json({
