@@ -20,6 +20,7 @@ export const updateInfo = async ( req: Request, res: Response ) => {
             ok: true,
             userDb
         });
+        
     } catch (error) {
         return res.status(500).json({
             ok: false,
@@ -38,12 +39,11 @@ export const updatePassword = async ( req: Request, res: Response ) => {
             ok: true,
             msg: "Password Updated"
         });
-        
+
     } catch (error) {
         return res.status(500).json({
             ok: false,
             msg: "Please, contact the administrator"
         });
-        
     }
 }
