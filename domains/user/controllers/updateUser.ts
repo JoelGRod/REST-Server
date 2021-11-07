@@ -6,15 +6,12 @@ import { Request, Response } from "express";
 export const updateInfo = async ( req: Request, res: Response ) => {
     try {
         const { 
-            userUpdatedId, 
-            name, 
-            img, 
-            email, 
-            role } = req.body;
+            id, name, img, email, role 
+        } = req.body;
 
         await User.findByIdAndUpdate( 
-            userUpdatedId, { name, img, email, role });
-        const userDb = await User.findById( userUpdatedId );
+            id, { name, img, email, role });
+        const userDb = await User.findById( id );
 
         return res.status(200).json({
             ok: true,
