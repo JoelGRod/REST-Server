@@ -3,14 +3,26 @@ import User from "../models/User";
 // Interfaces
 import { Request, Response } from "express";
 
-export const getUsers = async ( res: Response, req: Request ) => {
+export const getUsers = async ( req: Request, res: Response ) => {
     try {
-
-        return res.status(200).json({});
+        const { limit, from } = req.query;     
+        const [ total, usersDb ] = await Promise.all(
+            [   
+                User.count({ status: true }),
+                User.find({ status: true })
+                    .limit(Number(limit))
+                    .skip(Number(from)) 
+            ]);
+        return res.status(200).json({
+            ok: true,
+            total,
+            usersDb
+        });
         
     } catch (error) {
-
-        return res.status(500).json({});
-        
+        return res.status(500).json({
+            ok: false,
+            msg: "Please, Contact the Administrator"
+        }); 
     }
 }

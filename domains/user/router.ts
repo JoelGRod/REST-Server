@@ -11,6 +11,7 @@ import lastValidator from "./middlewares/lastValidator";
 import encryptPassword from "./middlewares/encryptPassword";
 // Controllers
 import * as create from "./controllers/createUser";
+import * as read from "./controllers/readUser";
 import * as update from "./controllers/updateUser";
 // Router instance
 const userRouter = Router();
@@ -18,7 +19,6 @@ const userRouter = Router();
 /** Routes */ 
 
 /** ------------ Create ------------ */
-
 // Create New User
 userRouter.post(
   "/create",
@@ -38,7 +38,17 @@ userRouter.post(
 );
 
 /** ------------ Read ------------ */
-// userRouter.get("/", [], responses.getRequest);
+userRouter.get(
+  "/", 
+  [
+    check("limit", "Limit is required and must contain something")
+      .notEmpty(),
+    check("from", "From is required and must contain something")
+      .notEmpty(),
+    lastValidator,
+  ], 
+  read.getUsers
+);
 
 /** ------------ Update ------------ */
 // Update User Info

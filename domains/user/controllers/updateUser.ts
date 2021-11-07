@@ -21,7 +21,7 @@ export const updateInfo = async ( req: Request, res: Response ) => {
     } catch (error) {
         return res.status(500).json({
             ok: false,
-            msg: "Please, contact the administrator"
+            msg: "Please, Contact the Administrator"
         });
     }
 }
@@ -40,7 +40,7 @@ export const updatePassword = async ( req: Request, res: Response ) => {
     } catch (error) {
         return res.status(500).json({
             ok: false,
-            msg: "Please, contact the administrator"
+            msg: "Please, contact the Administrator"
         });
     }
 }

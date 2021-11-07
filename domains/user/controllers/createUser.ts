@@ -17,8 +17,7 @@ export const createUser = async (req: Request, res: Response) => {
     } catch (error) {
         return res.status(500).json({
             ok: false,
-            msg: "Please, Contact the administrator",
-            error
+            msg: "Please, Contact the Administrator",
         })
     }
 }
