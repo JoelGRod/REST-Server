@@ -3,9 +3,9 @@ import { Router } from "express";
 import { check } from "express-validator";
 // Validators
 import emailExists from "./validators/emailExists";
-import checkRole from "./validators/checkRole";
 import idExists from "./validators/idExists";
-import * as checkPwd from "./validators/checkPwd"
+import * as checkRole from "./validators/checkRole";
+import * as checkPwd from "./validators/checkPwd";
 // Middlewares
 import lastValidator from "./middlewares/lastValidator";
 import encryptPassword from "./middlewares/encryptPassword";
@@ -27,7 +27,7 @@ userRouter.post(
     check("password", "Password is required")
       .isLength({ min: 6 }),
     check("role", "Invalid Role")
-      .toUpperCase().custom(checkRole),
+      .toUpperCase().custom(checkRole.checkDbRole),
     lastValidator,
     encryptPassword,
   ],
@@ -37,13 +37,24 @@ userRouter.post(
 // userRouter.get("/", [], responses.getRequest);
 // Update
 userRouter.put(
-  "/update/info/:id",
+  "/update/info",
   [
+    // validateJsonWebToken // Validate JWT and set id in body
     check("id", "Not a valid ID")
+      .isMongoId().custom(idExists),
+    check("userUpdatedId", "Not a valid ID")
       .isMongoId().custom(idExists),
     check("name", "Name is required")
       .notEmpty().trim().optional(),
-    lastValidator
+    check("img", "The image cannot be empty")
+      .notEmpty().trim().optional(),
+    check("email", "Email is required")
+      .isEmail().custom(emailExists).optional(),
+    check("role", "Invalid Role")
+      .toUpperCase()
+      .custom(checkRole.checkDbRole)
+      .custom(checkRole.checkAdminRole).optional(),
+    lastValidator,
   ],
   update.updateInfo
 );
@@ -56,13 +67,17 @@ userRouter.put(
       .isMongoId().custom(idExists),
     check("password", "Password is required") // Validate secure password
       .isLength({ min: 6 })
-      .custom( checkPwd.equalPasswords ),
-    check("oldPwd").custom( checkPwd.checkDbPwd ),
+      .custom(checkPwd.equalPasswords),
+    check("oldPwd")
+      .custom(checkPwd.checkDbPwd),
     lastValidator,
     encryptPassword,
   ],
   update.updatePassword
 );
+// TODO: Update forgot password (Only user token): /update/forgotten-pwd
+// TODO: Update forgot password by admin (Admin token + userid) /update/admin-forgotten-pwd
+
 // Delete
 // userRouter.delete("/", [], responses.deleteRequest);
 
