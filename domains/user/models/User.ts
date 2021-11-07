@@ -20,11 +20,11 @@ const UserSchema = new Schema({
   role: {
     type: String,
     required: true,
-    enum: ["ADMIN_ROLE", "USER_ROLE"],
+    enum: ["ADMIN_ROLE", "USER_ROLE", "SELLS_ROLE"],
   },
   status: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   google: {
     type: Boolean,
@@ -33,7 +33,7 @@ const UserSchema = new Schema({
 });
 
 UserSchema.methods.toJSON = function() {
-  const { __v, password, ...user } = this.toObject();
+  const { _id, __v, password, ...user } = this.toObject();
   return user; 
 }
 
