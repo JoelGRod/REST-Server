@@ -65,7 +65,7 @@ userRouter.put(
     // validateJsonWebToken // Validate JWT and set id in body
     check("id", "Not a valid ID")
       .isMongoId().custom(idExists),
-    check("password", "Password is required") // Validate secure password
+    check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
     check("oldPwd")
@@ -75,8 +75,46 @@ userRouter.put(
   ],
   update.updatePassword
 );
-// TODO: Update forgot password (Only user token): /update/forgotten-pwd
-// TODO: Update forgot password by admin (Admin token + userid) /update/admin-forgotten-pwd
+/**
+ * Security Break: This endpoint can only be accessed via
+ * user email link and custom token in separated frontend
+*/
+userRouter.put(
+  "/update/forgotten-pwd",
+  [
+    // validateJsonWebToken // Validate JWT and set id in body
+    check("id", "Not a valid ID")
+      .isMongoId().custom(idExists),
+    check("password", "Password is required")
+      .isLength({ min: 6 })
+      .custom(checkPwd.equalPasswords),
+    lastValidator,
+    encryptPassword,
+  ],
+  update.updatePassword
+);
+/**
+ * Security Break: This endpoint can only be accessed via
+ * admin user in administration panel
+*/
+userRouter.put(
+  "/update/admin-forgotten-pwd",
+  [
+    // validateJsonWebToken // Validate JWT and set id in body
+    check("id", "Not a valid ID")
+      .isMongoId().custom(idExists)
+      .custom(checkRole.checkAdminRole),
+    check("userUpdatedId", "Not a valid ID")
+      .isMongoId().custom(idExists),
+    check("password", "Password is required")
+      .isLength({ min: 6 })
+      .custom(checkPwd.equalPasswords),
+    lastValidator,
+    encryptPassword,
+    // TODO: Change the body id to the user id
+  ],
+  update.updatePassword
+);
 
 // Delete
 // userRouter.delete("/", [], responses.deleteRequest);
