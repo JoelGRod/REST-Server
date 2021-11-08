@@ -3,16 +3,17 @@ import { Router } from "express";
 import { check } from "express-validator";
 // Validators
 import emailExists from "./validators/emailExists";
-import idExists from "./validators/idExists";
+import * as checkId from "./validators/checkId";
 import * as checkRole from "./validators/checkRole";
 import * as checkPwd from "./validators/checkPwd";
 // Middlewares
 import lastValidator from "./middlewares/lastValidator";
 import encryptPassword from "./middlewares/encryptPassword";
 // Controllers
-import * as create from "./controllers/createUser";
-import * as read from "./controllers/readUser";
-import * as update from "./controllers/updateUser";
+import * as createController from "./controllers/createUser";
+import * as readController from "./controllers/readUser";
+import * as updateController from "./controllers/updateUser";
+import * as deleteController from "./controllers/deleteUser";
 // Router instance
 const userRouter = Router();
 
@@ -34,7 +35,7 @@ userRouter.post(
     lastValidator,
     encryptPassword,
   ],
-  create.createUser
+  createController.createUser
 );
 
 /** ------------ Read ------------ */
@@ -47,7 +48,7 @@ userRouter.get(
       .notEmpty(),
     lastValidator,
   ], 
-  read.getUsers
+  readController.getUsers
 );
 
 /** ------------ Update ------------ */
@@ -55,9 +56,9 @@ userRouter.get(
 userRouter.put(
   "/update/info",
   [
-    // validateJsonWebToken // Validate JWT and set id in body
+    // validateJsonWebToken // Validate JWT and set id in body (JWT in HEADERS)
     check("id", "Not a valid ID")
-      .isMongoId().custom(idExists),
+      .isMongoId().custom(checkId.idExists),
     check("name", "Name is required")
       .notEmpty().trim().optional(),
     check("img", "The image cannot be empty")
@@ -70,7 +71,7 @@ userRouter.put(
       .custom(checkRole.checkAdminRole).optional(),
     lastValidator,
   ],
-  update.updateInfo
+  updateController.updateInfo
 );
 
 // Update User Info By Admin
@@ -79,10 +80,10 @@ userRouter.put(
   [
     // validateJsonWebToken // Validate JWT and set id in body
     check("id", "Not a valid ID")
-      .isMongoId().custom(idExists)
+      .isMongoId().custom(checkId.idExists)
       .custom(checkRole.checkAdminRole),
     check("userUpdatedId", "Not a valid ID")
-      .isMongoId().custom(idExists),
+      .isMongoId().custom(checkId.idExists),
     check("name", "Name is required")
       .notEmpty().trim().optional(),
     check("img", "The image cannot be empty")
@@ -95,7 +96,7 @@ userRouter.put(
     lastValidator,
     // TODO: Change the body id to the user id
   ],
-  update.updateInfo
+  updateController.updateInfo
 );
 
 // Update User Password
@@ -104,7 +105,7 @@ userRouter.put(
   [
     // validateJsonWebToken // Validate JWT and set id in body
     check("id", "Not a valid ID")
-      .isMongoId().custom(idExists),
+      .isMongoId().custom(checkId.idExists),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
@@ -113,7 +114,7 @@ userRouter.put(
     lastValidator,
     encryptPassword,
   ],
-  update.updatePassword
+  updateController.updatePassword
 );
 
 /**
@@ -126,10 +127,10 @@ userRouter.put(
   [
     // validateJsonWebToken // Validate JWT and set id in body
     check("id", "Not a valid ID")
-      .isMongoId().custom(idExists)
+      .isMongoId().custom(checkId.idExists)
       .custom(checkRole.checkAdminRole),
     check("userUpdatedId", "Not a valid ID")
-      .isMongoId().custom(idExists),
+      .isMongoId().custom(checkId.idExists),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
@@ -137,7 +138,7 @@ userRouter.put(
     encryptPassword,
     // TODO: Change the body id to the user id
   ],
-  update.updatePassword
+  updateController.updatePassword
 );
 
 /**
@@ -150,17 +151,28 @@ userRouter.put(
   [
     // validateJsonWebToken // Validate JWT and set id in body
     check("id", "Not a valid ID")
-      .isMongoId().custom(idExists),
+      .isMongoId().custom(checkId.idExists),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
     lastValidator,
     encryptPassword,
   ],
-  update.updatePassword
+  updateController.updatePassword
 );
 
 /** ------------ Delete ------------ */
-// userRouter.delete("/", [], responses.deleteRequest);
+userRouter.delete(
+  "/delete/:deleteId", 
+  [
+    // validateJsonWebToken // Validate JWT and set id in body
+    check("id", "Not a valid ID")
+      .isMongoId().custom(checkId.idExists),
+    check("deleteId", "Not a valid ID")
+      .isMongoId().custom(checkId.idExists).custom(checkId.equalIds),
+    lastValidator,
+  ], 
+  deleteController.deleteUser
+);
 
 export default userRouter;
