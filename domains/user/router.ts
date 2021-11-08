@@ -42,6 +42,7 @@ userRouter.post(
 userRouter.get(
   "/", 
   [
+    // Token?
     check("limit", "Limit is required and must contain something")
       .notEmpty(),
     check("from", "From is required and must contain something")
