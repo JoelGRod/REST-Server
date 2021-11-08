@@ -3,12 +3,11 @@ import { Request, Response } from "express";
 
 export const login = async ( req: Request, res: Response ) => {
     try {
-        const { email, password } = req.body;
+        const userDb = req.body.userDb;
 
         return res.status(200).json({
             ok: true,
-            email,
-            password
+            userDb
         });
     } catch (error) {
         return res.status(500).json({
