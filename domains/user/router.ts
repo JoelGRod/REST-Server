@@ -7,7 +7,7 @@ import checkId from "./validators/checkId";
 import * as checkRole from "./validators/checkRole";
 import * as checkPwd from "./validators/checkPwd";
 // Middlewares
-import lastValidator from "./middlewares/lastValidator";
+import lastValidator from "../../infrastructure/middlewares/lastValidator";
 import encryptPassword from "./middlewares/encryptPassword";
 // Controllers
 import * as createController from "./controllers/createUser";
@@ -30,8 +30,6 @@ userRouter.post(
       .isEmail().custom(emailExists),
     check("password", "Password is required")
       .isLength({ min: 6 }),
-    check("role", "Invalid Role")
-      .toUpperCase().custom(checkRole.checkDbRole),
     lastValidator,
     encryptPassword,
   ],

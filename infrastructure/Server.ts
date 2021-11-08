@@ -8,6 +8,7 @@ import dbConnection from "./db/db.config";
 // Domain Routers
 import testRouter from "../domains/test/router";
 import userRouter from "../domains/user/router";
+import authRouter from "../domains/auth/router";
 
 class Server {
   // Singleton
@@ -42,6 +43,7 @@ class Server {
   private defineRoutes(): void {
     this._app.use("/api/test", testRouter);
     this._app.use("/api/user", userRouter);
+    this._app.use("/api/auth", authRouter);
   }
 
   // Middlewares

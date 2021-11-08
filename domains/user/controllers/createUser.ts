@@ -5,7 +5,8 @@ import { Request, Response } from "express";
 
 export const createUser = async (req: Request, res: Response) => {
     try {
-        const { name, email, password, role } = req.body;
+        const { name, email, password } = req.body;
+        const role = "USER_ROLE";
 
         const userDb = new User({name, email, password, role});
         
