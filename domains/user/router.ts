@@ -38,11 +38,11 @@ userRouter.post(
 );
 
 /** ------------ Read ------------ */
-// Get all active users (0)v
+// Get all active users (0)vv
 userRouter.get(
   "/", 
   [
-    // Token?
+    validateJWT,
     check("limit", "Limit is required and must contain something")
       .notEmpty(),
     check("from", "From is required and must contain something")
@@ -53,12 +53,12 @@ userRouter.get(
 );
 
 /** ------------ Update ------------ */
-// Update User Info (4)v
+// Update User Info (4)vv
 userRouter.put(
   "/update/info",
   [
-    // validateJsonWebToken // Validate JWT and set id in body (JWT in HEADERS)
-    check("id", "Not a valid ID")
+    validateJWT,
+    check("uid", "Not a valid ID")
       .isMongoId().custom(checkId),
     check("name", "Name is required")
       .notEmpty().trim().optional(),
@@ -75,12 +75,12 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Info By Admin (5)v
+// Update User Info By Admin (5)vv
 userRouter.put(
   "/update/info-admin",
   [
-    // validateJsonWebToken // Validate JWT and set id in body
-    check("id", "Not a valid ID")
+    validateJWT,
+    check("uid", "Not a valid ID")
       .isMongoId()
       .custom(checkId)
       .custom(checkRole.checkAdminRole),
@@ -101,12 +101,12 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Password (2)v
+// Update User Password (2)vv
 userRouter.put(
   "/update/pwd",
   [
-    // validateJsonWebToken // Validate JWT and set id in body
-    check("id", "Not a valid ID")
+    validateJWT,
+    check("uid", "Not a valid ID")
       .isMongoId().custom(checkId),
     check("password", "Password is required")
       .isLength({ min: 6 })
@@ -120,15 +120,15 @@ userRouter.put(
 );
 
 /**
- * Update Password By Admin (3)v
+ * Update Password By Admin (3)vv
  * Security Break: This endpoint can only be accessed via
  * admin user in administration panel
 */
 userRouter.put(
   "/update/pwd-admin",
   [
-    // validateJsonWebToken // Validate JWT and set id in body
-    check("id", "Not a valid ID")
+    validateJWT,
+    check("uid", "Not a valid ID")
       .isMongoId()
       .custom(checkId)
       .custom(checkRole.checkAdminRole),
@@ -139,21 +139,21 @@ userRouter.put(
       .custom(checkPwd.equalPasswords),
     lastValidator,
     encryptPassword,
-    // TODO: Change the body id to the user id
+    // TODO: Change the body id to the updated user id
   ],
   updateController.updatePassword
 );
 
 /**
- * Update Forgotten Password (1)v
+ * Update Forgotten Password (1)vv
  * Security Break: This endpoint can only be accessed via
  * user email link and custom token in separated frontend
 */
 userRouter.put(
   "/update/forgotten-pwd",
   [
-    // validateJsonWebToken // Validate JWT and set id in body
-    check("id", "Not a valid ID")
+    validateJWT,
+    check("uid", "Not a valid ID")
       .isMongoId().custom(checkId),
     check("password", "Password is required")
       .isLength({ min: 6 })
@@ -165,7 +165,7 @@ userRouter.put(
 );
 
 /** ------------ Delete ------------ */
-// Delete User -> Status: false (1)v
+// Delete User -> Status: false (1)vv
 userRouter.delete(
   "/delete", 
   [

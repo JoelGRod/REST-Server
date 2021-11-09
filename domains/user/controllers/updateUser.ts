@@ -6,12 +6,12 @@ import { Request, Response } from "express";
 export const updateInfo = async ( req: Request, res: Response ) => {
     try {
         const { 
-            id, name, img, email, role 
+            uid, name, img, email, role 
         } = req.body;
 
         await User.findByIdAndUpdate( 
-            id, { name, img, email, role });
-        const userDb = await User.findById( id );
+            uid, { name, img, email, role });
+        const userDb = await User.findById( uid );
 
         return res.status(200).json({
             ok: true,
@@ -28,9 +28,9 @@ export const updateInfo = async ( req: Request, res: Response ) => {
 
 export const updatePassword = async ( req: Request, res: Response ) => {
     try {
-        const { id, password } = req.body;
+        const { uid, password } = req.body;
 
-        await User.findByIdAndUpdate( id, { password } );
+        await User.findByIdAndUpdate( uid, { password } );
 
         return res.status(200).json({
             ok: true,

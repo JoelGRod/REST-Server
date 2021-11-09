@@ -9,8 +9,8 @@ export const checkDbRole = async ( role: string ) => {
 }
 
 export const checkAdminRole = async ( role: string, { req }: any) => {
-    const { id } = req.body;
-    const userDb = await User.findById( id );
+    const { uid } = req.body;
+    const userDb = await User.findById( uid );
 
     if( userDb.role === "ADMIN_ROLE" ) return true;
     throw new Error("You need to be an ADMIN to execute this action");
