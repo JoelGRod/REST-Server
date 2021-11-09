@@ -5,8 +5,8 @@ import { Request, Response } from "express";
 
 export const deleteUser = async ( req: Request, res: Response ) => {
     try {
-        const { id } = req.body;
-        const userDb = await User.findByIdAndUpdate( id, { status: false } );
+        const { uid } = req.body;
+        const userDb = await User.findByIdAndUpdate( uid, { status: false } );
         return res.status(200).json({
             ok: true,
             userDb

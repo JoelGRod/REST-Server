@@ -8,6 +8,7 @@ import * as checkRole from "./validators/checkRole";
 import * as checkPwd from "./validators/checkPwd";
 // Middlewares
 import lastValidator from "../../infrastructure/middlewares/lastValidator";
+import validateJWT from "../../infrastructure/middlewares/validateJWT";
 import encryptPassword from "./middlewares/encryptPassword";
 // Controllers
 import * as createController from "./controllers/createUser";
@@ -168,8 +169,8 @@ userRouter.put(
 userRouter.delete(
   "/delete", 
   [
-    // validateJsonWebToken // Validate JWT and set id in body
-    check("id", "Not a valid ID")
+    validateJWT,
+    check("uid", "Not a valid ID")
       .isMongoId().custom(checkId),
     lastValidator,
   ], 
