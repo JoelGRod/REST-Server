@@ -12,28 +12,27 @@ import validateJWT from "../../infrastructure/middlewares/validateJWT";
 import encryptPassword from "./middlewares/encryptPassword";
 import switchIds from "./middlewares/switchIds";
 // Controllers
-import * as createController from "./controllers/createUser";
-import * as readController from "./controllers/readUser";
-import * as updateController from "./controllers/updateUser";
-import * as deleteController from "./controllers/deleteUser";
+import {
+  createController,
+  readController,
+  updateController,
+  deleteController,
+} from "./controllers";
 // Router instance
 const userRouter = Router();
 
-/** Routes */ 
+/** Routes */
 
 /** ------------ Create ------------ */
 // Create New User (1)v
 userRouter.post(
   "/create",
   [
-    check("name", "Name is required")
-      .notEmpty().trim(),
-    check("email", "Email is required")
-      .isEmail().custom(emailExists),
-    check("password", "Password is required")
-      .isLength({ min: 6 }),
+    check("name", "Name is required").notEmpty().trim(),
+    check("email", "Email is required").isEmail().custom(emailExists),
+    check("password", "Password is required").isLength({ min: 6 }),
     lastValidator,
-    encryptPassword
+    encryptPassword,
   ],
   createController.createUser
 );
@@ -41,15 +40,13 @@ userRouter.post(
 /** ------------ Read ------------ */
 // Get all active users (0)vv
 userRouter.get(
-  "/", 
+  "/",
   [
     validateJWT,
-    check("limit", "Limit is required and must contain something")
-      .notEmpty(),
-    check("from", "From is required and must contain something")
-      .notEmpty(),
-    lastValidator
-  ], 
+    check("limit", "Limit is required and must contain something").notEmpty(),
+    check("from", "From is required and must contain something").notEmpty(),
+    lastValidator,
+  ],
   readController.getUsers
 );
 
@@ -59,19 +56,19 @@ userRouter.put(
   "/update/info",
   [
     validateJWT,
-    check("uid", "Not a valid ID")
-      .isMongoId().custom(checkId),
-    check("name", "Name is required")
-      .notEmpty().trim().optional(),
-    check("img", "The image cannot be empty")
-      .notEmpty().trim().optional(),
+    check("uid", "Not a valid ID").isMongoId().custom(checkId),
+    check("name", "Name is required").notEmpty().trim().optional(),
+    check("img", "The image cannot be empty").notEmpty().trim().optional(),
     check("email", "Email is required")
-      .isEmail().custom(emailExists).optional(),
+      .isEmail()
+      .custom(emailExists)
+      .optional(),
     check("role", "Invalid Role")
       .toUpperCase()
       .custom(checkRole.checkDbRole)
-      .custom(checkRole.checkAdminRole).optional(),
-    lastValidator
+      .custom(checkRole.checkAdminRole)
+      .optional(),
+    lastValidator,
   ],
   updateController.updateInfo
 );
@@ -85,19 +82,19 @@ userRouter.put(
       .isMongoId()
       .custom(checkId)
       .custom(checkRole.checkAdminRole),
-    check("userUpdatedId", "Not a valid ID")
-      .isMongoId().custom(checkId),
-    check("name", "Name is required")
-      .notEmpty().trim().optional(),
-    check("img", "The image cannot be empty")
-      .notEmpty().trim().optional(),
+    check("userUpdatedId", "Not a valid ID").isMongoId().custom(checkId),
+    check("name", "Name is required").notEmpty().trim().optional(),
+    check("img", "The image cannot be empty").notEmpty().trim().optional(),
     check("email", "Email is required")
-      .isEmail().custom(emailExists).optional(),
+      .isEmail()
+      .custom(emailExists)
+      .optional(),
     check("role", "Invalid Role")
       .toUpperCase()
-      .custom(checkRole.checkDbRole).optional(),
+      .custom(checkRole.checkDbRole)
+      .optional(),
     lastValidator,
-    switchIds
+    switchIds,
   ],
   updateController.updateInfo
 );
@@ -107,15 +104,13 @@ userRouter.put(
   "/update/pwd",
   [
     validateJWT,
-    check("uid", "Not a valid ID")
-      .isMongoId().custom(checkId),
+    check("uid", "Not a valid ID").isMongoId().custom(checkId),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
-    check("oldPwd")
-      .custom(checkPwd.checkDbPwd),
+    check("oldPwd").custom(checkPwd.checkDbPwd),
     lastValidator,
-    encryptPassword
+    encryptPassword,
   ],
   updateController.updatePassword
 );
@@ -124,7 +119,7 @@ userRouter.put(
  * Update Password By Admin (3)vv
  * Security Break: This endpoint can only be accessed via
  * admin user in administration panel
-*/
+ */
 userRouter.put(
   "/update/pwd-admin",
   [
@@ -133,14 +128,13 @@ userRouter.put(
       .isMongoId()
       .custom(checkId)
       .custom(checkRole.checkAdminRole),
-    check("userUpdatedId", "Not a valid ID")
-      .isMongoId().custom(checkId),
+    check("userUpdatedId", "Not a valid ID").isMongoId().custom(checkId),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
     lastValidator,
     encryptPassword,
-    switchIds
+    switchIds,
   ],
   updateController.updatePassword
 );
@@ -149,18 +143,17 @@ userRouter.put(
  * Update Forgotten Password (1)vv
  * Security Break: This endpoint can only be accessed via
  * user email link and custom token in separated frontend
-*/
+ */
 userRouter.put(
   "/update/forgotten-pwd",
   [
     validateJWT,
-    check("uid", "Not a valid ID")
-      .isMongoId().custom(checkId),
+    check("uid", "Not a valid ID").isMongoId().custom(checkId),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
     lastValidator,
-    encryptPassword
+    encryptPassword,
   ],
   updateController.updatePassword
 );
@@ -168,13 +161,12 @@ userRouter.put(
 /** ------------ Delete ------------ */
 // Delete User -> Status: false (1)vv
 userRouter.delete(
-  "/delete", 
+  "/delete",
   [
     validateJWT,
-    check("uid", "Not a valid ID")
-      .isMongoId().custom(checkId),
-    lastValidator
-  ], 
+    check("uid", "Not a valid ID").isMongoId().custom(checkId),
+    lastValidator,
+  ],
   deleteController.deleteUser
 );
 
