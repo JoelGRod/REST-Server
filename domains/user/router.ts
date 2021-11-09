@@ -20,7 +20,7 @@ const userRouter = Router();
 /** Routes */ 
 
 /** ------------ Create ------------ */
-// Create New User (1)
+// Create New User (1)v
 userRouter.post(
   "/create",
   [
@@ -37,7 +37,7 @@ userRouter.post(
 );
 
 /** ------------ Read ------------ */
-// Get all active users (0)
+// Get all active users (0)v
 userRouter.get(
   "/", 
   [
@@ -52,7 +52,7 @@ userRouter.get(
 );
 
 /** ------------ Update ------------ */
-// Update User Info (4)
+// Update User Info (4)v
 userRouter.put(
   "/update/info",
   [
@@ -74,7 +74,7 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Info By Admin (5)
+// Update User Info By Admin (5)v
 userRouter.put(
   "/update/info-admin",
   [
@@ -100,7 +100,7 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Password (2)
+// Update User Password (2)v
 userRouter.put(
   "/update/pwd",
   [
@@ -119,7 +119,7 @@ userRouter.put(
 );
 
 /**
- * Update Password By Admin (3)
+ * Update Password By Admin (3)v
  * Security Break: This endpoint can only be accessed via
  * admin user in administration panel
 */
@@ -144,7 +144,7 @@ userRouter.put(
 );
 
 /**
- * Update Forgotten Password (1)
+ * Update Forgotten Password (1)v
  * Security Break: This endpoint can only be accessed via
  * user email link and custom token in separated frontend
 */
@@ -164,7 +164,7 @@ userRouter.put(
 );
 
 /** ------------ Delete ------------ */
-// Delete User -> Status: false (1)
+// Delete User -> Status: false (1)v
 userRouter.delete(
   "/delete", 
   [
