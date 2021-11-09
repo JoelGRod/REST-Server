@@ -20,7 +20,7 @@ const userRouter = Router();
 /** Routes */ 
 
 /** ------------ Create ------------ */
-// Create New User
+// Create New User (1)
 userRouter.post(
   "/create",
   [
@@ -37,6 +37,7 @@ userRouter.post(
 );
 
 /** ------------ Read ------------ */
+// Get all active users (0)
 userRouter.get(
   "/", 
   [
@@ -51,7 +52,7 @@ userRouter.get(
 );
 
 /** ------------ Update ------------ */
-// Update User Info
+// Update User Info (4)
 userRouter.put(
   "/update/info",
   [
@@ -73,13 +74,14 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Info By Admin
+// Update User Info By Admin (5)
 userRouter.put(
   "/update/info-admin",
   [
     // validateJsonWebToken // Validate JWT and set id in body
     check("id", "Not a valid ID")
-      .isMongoId().custom(checkId)
+      .isMongoId()
+      .custom(checkId)
       .custom(checkRole.checkAdminRole),
     check("userUpdatedId", "Not a valid ID")
       .isMongoId().custom(checkId),
@@ -98,7 +100,7 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Password
+// Update User Password (2)
 userRouter.put(
   "/update/pwd",
   [
@@ -117,7 +119,7 @@ userRouter.put(
 );
 
 /**
- * Update Password By Admin
+ * Update Password By Admin (3)
  * Security Break: This endpoint can only be accessed via
  * admin user in administration panel
 */
@@ -126,7 +128,8 @@ userRouter.put(
   [
     // validateJsonWebToken // Validate JWT and set id in body
     check("id", "Not a valid ID")
-      .isMongoId().custom(checkId)
+      .isMongoId()
+      .custom(checkId)
       .custom(checkRole.checkAdminRole),
     check("userUpdatedId", "Not a valid ID")
       .isMongoId().custom(checkId),
@@ -141,7 +144,7 @@ userRouter.put(
 );
 
 /**
- * Update Forgotten Password
+ * Update Forgotten Password (1)
  * Security Break: This endpoint can only be accessed via
  * user email link and custom token in separated frontend
 */
@@ -161,6 +164,7 @@ userRouter.put(
 );
 
 /** ------------ Delete ------------ */
+// Delete User -> Status: false (1)
 userRouter.delete(
   "/delete", 
   [

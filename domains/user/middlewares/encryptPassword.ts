@@ -1,11 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import * as bcrypt from "bcrypt";
+import { encrypt } from "../../../infrastructure/helpers/crypt";
 
 const encryptPassword = (req: Request, res: Response, next: NextFunction) => {
   const { password } = req.body;
-
-  const salt = bcrypt.genSaltSync();
-  req.body.password = bcrypt.hashSync(password, salt);
+  req.body.password = encrypt(password);
   next();
 };
 
