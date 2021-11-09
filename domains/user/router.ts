@@ -10,6 +10,7 @@ import * as checkPwd from "./validators/checkPwd";
 import lastValidator from "../../infrastructure/middlewares/lastValidator";
 import validateJWT from "../../infrastructure/middlewares/validateJWT";
 import encryptPassword from "./middlewares/encryptPassword";
+import switchIds from "./middlewares/switchIds";
 // Controllers
 import * as createController from "./controllers/createUser";
 import * as readController from "./controllers/readUser";
@@ -32,7 +33,7 @@ userRouter.post(
     check("password", "Password is required")
       .isLength({ min: 6 }),
     lastValidator,
-    encryptPassword,
+    encryptPassword
   ],
   createController.createUser
 );
@@ -47,7 +48,7 @@ userRouter.get(
       .notEmpty(),
     check("from", "From is required and must contain something")
       .notEmpty(),
-    lastValidator,
+    lastValidator
   ], 
   readController.getUsers
 );
@@ -70,7 +71,7 @@ userRouter.put(
       .toUpperCase()
       .custom(checkRole.checkDbRole)
       .custom(checkRole.checkAdminRole).optional(),
-    lastValidator,
+    lastValidator
   ],
   updateController.updateInfo
 );
@@ -96,7 +97,7 @@ userRouter.put(
       .toUpperCase()
       .custom(checkRole.checkDbRole).optional(),
     lastValidator,
-    // TODO: Change the body id to the user id
+    switchIds
   ],
   updateController.updateInfo
 );
@@ -114,7 +115,7 @@ userRouter.put(
     check("oldPwd")
       .custom(checkPwd.checkDbPwd),
     lastValidator,
-    encryptPassword,
+    encryptPassword
   ],
   updateController.updatePassword
 );
@@ -139,7 +140,7 @@ userRouter.put(
       .custom(checkPwd.equalPasswords),
     lastValidator,
     encryptPassword,
-    // TODO: Change the body id to the updated user id
+    switchIds
   ],
   updateController.updatePassword
 );
@@ -159,7 +160,7 @@ userRouter.put(
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
     lastValidator,
-    encryptPassword,
+    encryptPassword
   ],
   updateController.updatePassword
 );
@@ -172,7 +173,7 @@ userRouter.delete(
     validateJWT,
     check("uid", "Not a valid ID")
       .isMongoId().custom(checkId),
-    lastValidator,
+    lastValidator
   ], 
   deleteController.deleteUser
 );
