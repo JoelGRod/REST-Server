@@ -5,5 +5,3 @@ export const checkId = async ( uid: string ) => {
     if(userDb && userDb.status) return true;
     throw new Error("The provided id does not exist");
 }
-
-export default checkId;

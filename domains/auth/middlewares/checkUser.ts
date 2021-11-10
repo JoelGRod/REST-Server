@@ -3,7 +3,7 @@ import { compareCrypt } from "../../../infrastructure/helpers/crypt";
 // Models
 import User from "../../user/models/User";
 
-const checkUser = async (req: Request, res: Response, next: NextFunction) => {
+export const checkUser = async (req: Request, res: Response, next: NextFunction) => {
 
   const { email, password } = req.body;
 
@@ -22,5 +22,3 @@ const checkUser = async (req: Request, res: Response, next: NextFunction) => {
   req.body.userDb = userDb;
   next();
 };
-
-export default checkUser;

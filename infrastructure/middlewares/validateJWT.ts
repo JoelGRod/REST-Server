@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import { JWTDecoded } from "../interfaces/JWT-interface";
 
-const validateJWT = (req: Request, res: Response, next: NextFunction) => {
+export const validateJWT = (req: Request, res: Response, next: NextFunction) => {
     const token = req.header("x-token");
 
     if(!token) return res.status(401).json({
@@ -26,5 +26,3 @@ const validateJWT = (req: Request, res: Response, next: NextFunction) => {
         })
     }
 }
-
-export default validateJWT;

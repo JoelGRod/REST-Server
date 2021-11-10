@@ -2,10 +2,10 @@ import { Router } from "express";
 import { check } from "express-validator";
 // Validators
 // Middlewares
-import checkUser from "./middlewares/checkUser";
-import lastValidator from "../../infrastructure/middlewares/lastValidator";
+import { checkUser } from "./middlewares";
+import { lastValidator } from "../../infrastructure/middlewares";
 // Controllers
-import * as authController from "./controllers/auth";
+import { authController } from "./controllers";
 // Router Instance
 const router = Router();
 

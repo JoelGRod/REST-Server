@@ -2,15 +2,21 @@
 import { Router } from "express";
 import { check } from "express-validator";
 // Validators
-import emailExists from "./validators/emailExists";
-import checkId from "./validators/checkId";
-import * as checkRole from "./validators/checkRole";
-import * as checkPwd from "./validators/checkPwd";
+import {
+  emailExists,
+  checkId,
+  checkRole,
+  checkPwd,
+} from "./validators";
 // Middlewares
-import lastValidator from "../../infrastructure/middlewares/lastValidator";
-import validateJWT from "../../infrastructure/middlewares/validateJWT";
-import encryptPassword from "./middlewares/encryptPassword";
-import switchIds from "./middlewares/switchIds";
+import {
+  lastValidator,
+  validateJWT
+} from "../../infrastructure/middlewares";
+import {
+  encryptPassword,
+  switchIds
+} from "./middlewares";
 // Controllers
 import {
   createController,
@@ -18,6 +24,7 @@ import {
   updateController,
   deleteController,
 } from "./controllers";
+
 // Router instance
 const userRouter = Router();
 

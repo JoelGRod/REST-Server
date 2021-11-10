@@ -1,4 +1,4 @@
-import generateJWT from '../helpers/generateJWT';
+import { generateJWT } from '../helpers';
 // Interfaces
 import { Request, Response } from "express";
 

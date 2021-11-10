@@ -1,7 +1,7 @@
 // External
 import jwt from "jsonwebtoken";
 
-const generateJWT = (uid: string) => {
+export const generateJWT = (uid: string) => {
   return new Promise((resolve, reject) => {
     const payload = { uid };
     jwt.sign(
@@ -15,5 +15,3 @@ const generateJWT = (uid: string) => {
     );
   });
 };
-
-export default generateJWT;
