@@ -6,7 +6,7 @@ import {
   emailExists,
   checkId,
   checkRole,
-  checkPwd,
+  checkPwd
 } from "./validators";
 // Middlewares
 import {
@@ -15,14 +15,16 @@ import {
 } from "../../infrastructure/middlewares";
 import {
   encryptPassword,
-  switchIds
+  switchIds,
+  checkTokenId,
+  checkTokenRole
 } from "./middlewares";
 // Controllers
 import {
   createController,
   readController,
   updateController,
-  deleteController,
+  deleteController
 } from "./controllers";
 
 // Router instance
@@ -31,7 +33,7 @@ const userRouter = Router();
 /** Routes */
 
 /** ------------ Create ------------ */
-// Create New User (1)v
+// Create New User (1)vx
 userRouter.post(
   "/create",
   [
@@ -45,7 +47,7 @@ userRouter.post(
 );
 
 /** ------------ Read ------------ */
-// Get all active users (0)vv
+// Get all active users (0)vvx
 userRouter.get(
   "/",
   [
@@ -58,7 +60,7 @@ userRouter.get(
 );
 
 /** ------------ Update ------------ */
-// Update User Info (4)vv
+// Update User Info (4)vvx
 userRouter.put(
   "/update/info",
   [
@@ -80,7 +82,7 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Info By Admin (5)vv
+// Update User Info By Admin (5)vvx
 userRouter.put(
   "/update/info-admin",
   [
@@ -106,12 +108,13 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Password (2)vv
+// Update User Password (2)vvv
 userRouter.put(
   "/update/pwd",
   [
     validateJWT,
-    check("uid", "Not a valid ID").isMongoId().custom(checkId),
+    checkTokenId,
+    checkTokenRole("ADMIN_ROLE", "USER_ROLE"),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
@@ -123,7 +126,7 @@ userRouter.put(
 );
 
 /**
- * Update Password By Admin (3)vv
+ * Update Password By Admin (3)vvv
  * Security Break: This endpoint can only be accessed via
  * admin user in administration panel
  */
@@ -131,10 +134,8 @@ userRouter.put(
   "/update/pwd-admin",
   [
     validateJWT,
-    check("uid", "Not a valid ID")
-      .isMongoId()
-      .custom(checkId)
-      .custom(checkRole.checkAdminRole),
+    checkTokenId,
+    checkTokenRole("ADMIN_ROLE"),
     check("userUpdatedId", "Not a valid ID").isMongoId().custom(checkId),
     check("password", "Password is required")
       .isLength({ min: 6 })
@@ -147,7 +148,7 @@ userRouter.put(
 );
 
 /**
- * Update Forgotten Password (1)vv
+ * Update Forgotten Password (1)vvv
  * Security Break: This endpoint can only be accessed via
  * user email link and custom token in separated frontend
  */
@@ -166,12 +167,14 @@ userRouter.put(
 );
 
 /** ------------ Delete ------------ */
-// Delete User -> Status: false (1)vv
+// Delete User -> Status: false (1)vvv
 userRouter.delete(
-  "/delete",
+  "/delete/:deleteId",
   [
     validateJWT,
-    check("uid", "Not a valid ID").isMongoId().custom(checkId),
+    checkTokenId,
+    checkTokenRole("ADMIN_ROLE"),
+    check("deleteId", "Not a valid ID").isMongoId().custom(checkId),
     lastValidator,
   ],
   deleteController.deleteUser
