@@ -19,5 +19,4 @@ export const login = async ( req: Request, res: Response ) => {
             msg: "Please, Contact the Administrator",
         })
     }
-
 }

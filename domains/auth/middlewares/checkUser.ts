@@ -1,4 +1,6 @@
+// Interfaces
 import { NextFunction, Request, Response } from "express";
+// Infrastructure
 import { compareCrypt } from "../../../infrastructure/helpers/crypt";
 // Models
 import User from "../../user/models/User";

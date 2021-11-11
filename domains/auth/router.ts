@@ -2,7 +2,7 @@ import { Router } from "express";
 import { check } from "express-validator";
 // Validators
 // Middlewares
-import { checkUser } from "./middlewares";
+import { checkUser, checkGoogleToken, checkGoogleUser } from "./middlewares";
 import { lastValidator } from "../../infrastructure/middlewares";
 // Controllers
 import { authController } from "./controllers";
@@ -17,6 +17,17 @@ router.post(
     check("password", "Password id required").notEmpty(),
     lastValidator,
     checkUser
+  ],
+  authController.login
+);
+
+router.post(
+  "/google",
+  [
+    check("google-token", "Google Token is required").notEmpty(),
+    lastValidator,
+    checkGoogleToken, 
+    checkGoogleUser
   ],
   authController.login
 );
