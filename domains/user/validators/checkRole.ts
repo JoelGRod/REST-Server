@@ -1,6 +1,5 @@
 // Models
 import Role from "../models/Role";
-import User from "../models/User";
 
 export const checkDbRole = async ( role: string ) => {
     const validRole = await Role.findOne({ role });
