@@ -33,7 +33,7 @@ const userRouter = Router();
 /** Routes */
 
 /** ------------ Create ------------ */
-// Create New User (1)vx
+// Create New User (1)
 userRouter.post(
   "/create",
   [
@@ -47,7 +47,7 @@ userRouter.post(
 );
 
 /** ------------ Read ------------ */
-// Get all active users (0)vvx
+// Get all active users (0)
 userRouter.get(
   "/",
   [
@@ -61,7 +61,7 @@ userRouter.get(
 );
 
 /** ------------ Update ------------ */
-// Update User Info (4)vvv
+// Update User Info (4)
 userRouter.put(
   "/update/info",
   [
@@ -84,7 +84,7 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Info By Admin (5)vvv
+// Update User Info By Admin (5)
 userRouter.put(
   "/update/info-admin",
   [
@@ -108,7 +108,7 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Password (2)vvv
+// Update User Password (2)
 userRouter.put(
   "/update/pwd",
   [
