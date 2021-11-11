@@ -11,13 +11,13 @@ import {
 // Middlewares
 import {
   lastValidator,
-  validateJWT
+  validateJWT,
+  validateJWTId,
+  validateJWTRole
 } from "../../infrastructure/middlewares";
 import {
   encryptPassword,
-  switchIds,
-  checkTokenId,
-  checkTokenRole
+  switchIds
 } from "./middlewares";
 // Controllers
 import {
@@ -52,6 +52,7 @@ userRouter.get(
   "/",
   [
     validateJWT,
+    check("uid", "Not a valid ID").isMongoId().custom(checkId),
     check("limit", "Limit is required and must contain something").notEmpty(),
     check("from", "From is required and must contain something").notEmpty(),
     lastValidator,
@@ -60,12 +61,13 @@ userRouter.get(
 );
 
 /** ------------ Update ------------ */
-// Update User Info (4)vvx
+// Update User Info (4)vvv
 userRouter.put(
   "/update/info",
   [
     validateJWT,
-    check("uid", "Not a valid ID").isMongoId().custom(checkId),
+    validateJWTId,
+    validateJWTRole("ADMIN_ROLE", "USER_ROLE"),
     check("name", "Name is required").notEmpty().trim().optional(),
     check("img", "The image cannot be empty").notEmpty().trim().optional(),
     check("email", "Email is required")
@@ -82,15 +84,13 @@ userRouter.put(
   updateController.updateInfo
 );
 
-// Update User Info By Admin (5)vvx
+// Update User Info By Admin (5)vvv
 userRouter.put(
   "/update/info-admin",
   [
     validateJWT,
-    check("uid", "Not a valid ID")
-      .isMongoId()
-      .custom(checkId)
-      .custom(checkRole.checkAdminRole),
+    validateJWTId,
+    validateJWTRole("ADMIN_ROLE"),
     check("userUpdatedId", "Not a valid ID").isMongoId().custom(checkId),
     check("name", "Name is required").notEmpty().trim().optional(),
     check("img", "The image cannot be empty").notEmpty().trim().optional(),
@@ -113,8 +113,8 @@ userRouter.put(
   "/update/pwd",
   [
     validateJWT,
-    checkTokenId,
-    checkTokenRole("ADMIN_ROLE", "USER_ROLE"),
+    validateJWTId,
+    validateJWTRole("ADMIN_ROLE", "USER_ROLE"),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
@@ -134,8 +134,8 @@ userRouter.put(
   "/update/pwd-admin",
   [
     validateJWT,
-    checkTokenId,
-    checkTokenRole("ADMIN_ROLE"),
+    validateJWTId,
+    validateJWTRole("ADMIN_ROLE"),
     check("userUpdatedId", "Not a valid ID").isMongoId().custom(checkId),
     check("password", "Password is required")
       .isLength({ min: 6 })
@@ -172,8 +172,8 @@ userRouter.delete(
   "/delete/:deleteId",
   [
     validateJWT,
-    checkTokenId,
-    checkTokenRole("ADMIN_ROLE"),
+    validateJWTId,
+    validateJWTRole("ADMIN_ROLE"),
     check("deleteId", "Not a valid ID").isMongoId().custom(checkId),
     lastValidator,
   ],

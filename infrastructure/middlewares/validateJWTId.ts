@@ -1,9 +1,9 @@
 // Interfaces
 import { NextFunction, Request, Response } from "express";
 // Modules
-import User from "../models/User";
+import User from "../../domains/user/models/User" ;
 
-export const checkTokenId = async (
+export const validateJWTId = async (
   req: Request,
   res: Response,
   next: NextFunction
