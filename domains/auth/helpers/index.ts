@@ -1,1 +1,0 @@
-export { generateJWT } from '../helpers/generateJWT';
