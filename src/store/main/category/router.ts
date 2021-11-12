@@ -10,23 +10,42 @@ const categoryRouter = Router();
 
 // Get all categories
 categoryRouter.get("/", [], (req: any, res: any) => {
-    console.log("hello categories");
     res.json({
         ok: true,
-        msg: "You Rocks!!"
+        msg: "get all categories"
     })
 });
 
-// // Get one category - id
-// categoryRouter.get("/:id", [], controller);
+// Get one category - id
+categoryRouter.get("/:id", [], (req: any, res: any) => {
+    res.json({
+        ok: true,
+        msg: "get one category"
+    })
+});
 
-// // Create category
-// categoryRouter.post("/", [], controller);
+// Create category
+categoryRouter.post("/", [], (req: any, res: any) => {
+    res.json({
+        ok: true,
+        msg: "create category"
+    })
+});
 
-// // Modify category
-// categoryRouter.put("/:id", [], controller);
+// Modify category
+categoryRouter.put("/:id", [], (req: any, res: any) => {
+    res.json({
+        ok: true,
+        msg: "update category"
+    })
+});
 
-// // Delete category
-// categoryRouter.delete("/:id", [], controller);
+// Delete category
+categoryRouter.delete("/:id", [], (req: any, res: any) => {
+    res.json({
+        ok: true,
+        msg: "delete category"
+    })
+});
 
 export default categoryRouter;
