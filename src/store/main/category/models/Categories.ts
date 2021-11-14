@@ -23,27 +23,29 @@ export class Categories {
 
   public static async getCategoryById(id: string): Promise<Category> {
     return await CategoryDb.findById(id);
+  } // 1
+
+  public static async categoryExistsById(id: string): Promise<boolean> {
+    return (await CategoryDb.findById(id)) ? true : false;
+  } // 1
+
+  public static async categoryExistsByName(name: string): Promise<boolean> {
+    name = name.toUpperCase();
+    return (await CategoryDb.findOne({ name })) ? true : false;
   } // 2
 
-  public async categoryExistsById(id: string): Promise<boolean> {
-    return (await CategoryDb.findById(id)) ? true : false;
-  }
-
-  public async categoryExistsByName(name: string): Promise<boolean> {
-    return (await CategoryDb.findOne({ name })) ? true : false;
-  }
-
-  public async saveCategory(categoryData: CategoryData): Promise<Category> {
+  public static async saveCategory(categoryData: CategoryData): Promise<Category> {
     const newCategory = new CategoryDb(categoryData);
     await newCategory.save();
     return newCategory;
-  }
+  } // 1
 
-  public async updateCategory(id: string,categoryData: CategoryData): Promise<Category> {
+  public static async updateCategory(id: string, categoryData: CategoryData): Promise<Category> {
+    console.log(categoryData);
     return await CategoryDb.findByIdAndUpdate(id, categoryData);
   }
 
-  public async deleteCategory(id: string): Promise<Category> {
-    return await CategoryDb.findByIdAndUpdate(id, {status: false});
+  public static async deleteCategory(id: string, user: string): Promise<Category> {
+    return await CategoryDb.findByIdAndUpdate(id, {status: false, user});
   }
 }

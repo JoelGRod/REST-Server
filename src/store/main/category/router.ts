@@ -17,7 +17,10 @@ import {
     updateController,
     deleteController
 } from "./controllers";
-
+import { 
+  categoryExistsById, 
+  categoryNotExistsByName 
+} from "./validators/categoryExists";
 
 // Router instance
 const categoryRouter = Router();
@@ -54,7 +57,8 @@ categoryRouter.post(
     validateJWT,
     validateJWTId,
     validateJWTRole("ADMIN_ROLE"),
-    check("name", "Name is Required").notEmpty(),
+    check("name", "Name is Required")
+      .notEmpty().custom(categoryNotExistsByName),
     lastValidator,
   ],
   createController.createCategory
@@ -67,7 +71,10 @@ categoryRouter.put(
     validateJWT,
     validateJWTId,
     validateJWTRole("ADMIN_ROLE"),
-    check("name", "Name is Required").notEmpty(),
+    check("id", "Id must be Provided")
+      .notEmpty().isMongoId().custom(categoryExistsById),
+    check("name", "Name is Required")
+      .notEmpty().custom(categoryNotExistsByName),
     lastValidator,
   ], 
   updateController.updateCategory
@@ -80,7 +87,10 @@ categoryRouter.delete(
     validateJWT,
     validateJWTId,
     validateJWTRole("ADMIN_ROLE"),
+    check("id", "Id must be Provided")
+      .notEmpty().isMongoId(),
     lastValidator,
+    checkCategory
   ], 
   deleteController.deleteCategory
 );

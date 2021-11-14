@@ -8,15 +8,7 @@ export const createCategory = async (req: Request, res: Response) => {
     const name = req.body.name.toUpperCase();
     const user = req.body.uid;
 
-    const categories = new Categories();
-
-    if (await categories.categoryExistsByName(name))
-      return res.status(400).json({
-        ok: false,
-        msg: `Category ${name} already exists`,
-      });
-
-    const categoryDb = await categories.saveCategory({name, user});
+    const categoryDb = await Categories.saveCategory({name, user});
 
     return res.status(201).json({
       ok: true,
