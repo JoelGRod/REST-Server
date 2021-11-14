@@ -9,29 +9,43 @@ import {
   validateJWTId,
   validateJWTRole,
 } from "../../../shared/middlewares";
+import { checkCategory } from "./middleware/checkCategory";
 // Controllers
 import { 
-    createController 
+    createController,
+    readController,
+    updateController,
+    deleteController
 } from "./controllers";
+
 
 // Router instance
 const categoryRouter = Router();
 
 // Get all categories
-categoryRouter.get("/", [], (req: any, res: any) => {
-  res.json({
-    ok: true,
-    msg: "get all categories",
-  });
-});
+categoryRouter.get(
+  "/", 
+  [
+    validateJWT,
+    validateJWTId,
+    check("limit", "Limit is Required").notEmpty(),
+    check("from", "From is Required").notEmpty(),
+    lastValidator,
+  ], 
+  readController.readAllCategories);
 
 // Get one category - id
-categoryRouter.get("/:id", [], (req: any, res: any) => {
-  res.json({
-    ok: true,
-    msg: "get one category",
-  });
-});
+categoryRouter.get(
+  "/:id", 
+  [
+    validateJWT,
+    validateJWTId,
+    check("id", "Id must be Provided")
+      .notEmpty().isMongoId(),
+    lastValidator,
+    checkCategory
+  ], 
+  readController.readOneCategory);
 
 // Create category
 categoryRouter.post(
@@ -47,19 +61,28 @@ categoryRouter.post(
 );
 
 // Modify category
-categoryRouter.put("/:id", [], (req: any, res: any) => {
-  res.json({
-    ok: true,
-    msg: "update category",
-  });
-});
+categoryRouter.put(
+  "/:id", 
+  [
+    validateJWT,
+    validateJWTId,
+    validateJWTRole("ADMIN_ROLE"),
+    check("name", "Name is Required").notEmpty(),
+    lastValidator,
+  ], 
+  updateController.updateCategory
+);
 
 // Delete category
-categoryRouter.delete("/:id", [], (req: any, res: any) => {
-  res.json({
-    ok: true,
-    msg: "delete category",
-  });
-});
+categoryRouter.delete(
+  "/:id", 
+  [
+    validateJWT,
+    validateJWTId,
+    validateJWTRole("ADMIN_ROLE"),
+    lastValidator,
+  ], 
+  deleteController.deleteCategory
+);
 
 export default categoryRouter;
