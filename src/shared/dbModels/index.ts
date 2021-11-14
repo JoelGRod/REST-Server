@@ -1,5 +1,5 @@
-import Category from "./Category";
+import CategoryDb from "./Category";
 import Role from "./Role";
 import User from "./User";
 
-export { Category, Role, User };
+export { CategoryDb, Role, User };

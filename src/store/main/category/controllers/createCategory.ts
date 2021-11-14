@@ -1,30 +1,27 @@
 // Models
-import { Category } from '../models/Category';
+import { Categories } from "../models/Categories";
 // Interfaces
 import { Request, Response } from "express";
 
 export const createCategory = async (req: Request, res: Response) => {
   try {
-
     const name = req.body.name.toUpperCase();
+    const uid = req.body.uid;
 
-    const category = new Category();
+    const categories = new Categories();
+    await categories.categoriesDb();
 
-    const categoryExists = await category.categoryExists(name);
-
-    if(categoryExists) return res.status(400).json({
+    if (categories.categoryExists(name))
+      return res.status(400).json({
         ok: false,
-        msg: `Category ${name} already exists`
-    });
+        msg: `Category ${name} already exists`,
+      });
 
-    const categoryDb = await category.saveCategory({
-        name,
-        user: req.body.uid
-    });
+    const categoryDb = await categories.saveCategory(name, uid);
 
     return res.status(201).json({
       ok: true,
-      categoryDb
+      categoryDb,
     });
   } catch (error) {
     return res.status(500).json({
