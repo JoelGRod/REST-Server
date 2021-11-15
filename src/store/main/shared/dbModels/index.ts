@@ -1,3 +1,4 @@
 import CategoryDb from "./Category";
+import ProductDb from "./Product";
 
-export { CategoryDb };
+export { CategoryDb, ProductDb };
