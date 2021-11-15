@@ -14,7 +14,7 @@ export const checkCategory = async (
   if (!category || !category.status)
     return res.status(404).json({
       ok: false,
-      msg: "The Category does not Exist or is Deleted",
+      msg: "The Category does not Exist or it`s Deleted",
     });
 
   req.body.categoryDb = category;
