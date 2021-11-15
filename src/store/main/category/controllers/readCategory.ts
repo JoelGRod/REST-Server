@@ -1,6 +1,3 @@
-// obtener todas paginado, total - populate user
-// Obtener una - populate user
-
 // Models
 import { Categories } from "../models/Categories";
 // Interfaces
@@ -11,7 +8,8 @@ export const readAllCategories = async (req: Request, res: Response) => {
 
     const { from, limit } = req.query;
     
-    const categoriesDb = await Categories.getAllCategories( from, limit ); 
+    const categories = new Categories();
+    const categoriesDb = await categories.getAllCategories( from, limit ); 
 
     return res.status(201).json({
       ok: true,

@@ -1,5 +1,3 @@
-// borrar categoria - cambiar status a false
-
 // Models
 import { Categories } from "../models/Categories";
 // Interfaces
@@ -11,7 +9,8 @@ export const deleteCategory = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { uid: user } = req.body;
 
-    const categoryDb = await Categories.deleteCategory( id, user );
+    const categories = new Categories();
+    const categoryDb = await categories.deleteCategory( id, user );
 
     return res.status(201).json({
       ok: true,

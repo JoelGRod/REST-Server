@@ -8,7 +8,8 @@ export const createCategory = async (req: Request, res: Response) => {
     const name = req.body.name.toUpperCase();
     const user = req.body.uid;
 
-    const categoryDb = await Categories.saveCategory({name, user});
+    const categories = new Categories();
+    const categoryDb = await categories.saveCategory({name, user});
 
     return res.status(201).json({
       ok: true,

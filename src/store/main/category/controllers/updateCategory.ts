@@ -1,5 +1,3 @@
-// actualizar categoria y que no exista la nueva ya
-
 // Models
 import { Categories } from "../models/Categories";
 // Interfaces
@@ -12,7 +10,8 @@ export const updateCategory = async (req: Request, res: Response) => {
     const name = req.body.name.toUpperCase();
     const { uid: user } = req.body;
 
-    const categoryDb  = await Categories.updateCategory( 
+    const categories = new Categories();
+    const categoryDb  = await categories.updateCategory( 
       id, { user, name } 
     );
 

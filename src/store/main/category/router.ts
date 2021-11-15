@@ -9,7 +9,7 @@ import {
   validateJWTId,
   validateJWTRole,
 } from "../../../shared/middlewares";
-import { checkCategory } from "./middleware/checkCategory";
+import { checkCategory } from "../shared/middlewares/checkCategory";
 // Controllers
 import { 
     createController,
@@ -20,7 +20,7 @@ import {
 import { 
   categoryExistsById, 
   categoryNotExistsByName 
-} from "./validators/categoryExists";
+} from "../shared/validators/categoryExists";
 
 // Router instance
 const categoryRouter = Router();

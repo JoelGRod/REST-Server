@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Categories } from "../models/Categories";
+import { CategoryDb } from "../dbModels";
 
 export const checkCategory = async (
   req: Request,
@@ -7,7 +7,7 @@ export const checkCategory = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
-  const category = await Categories.getCategoryById(id);
+  const category = await CategoryDb.findById(id);
   if (!category || !category.status)
     return res.status(404).json({
       ok: false,
