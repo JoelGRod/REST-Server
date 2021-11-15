@@ -7,7 +7,10 @@ export const checkCategory = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
-  const category = await CategoryDb.findById(id);
+  const category = await CategoryDb.findById(id).populate({
+    path: "user",
+    select: "name",
+  });
   if (!category || !category.status)
     return res.status(404).json({
       ok: false,

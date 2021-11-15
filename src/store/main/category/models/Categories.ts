@@ -13,7 +13,7 @@ export class Categories {
         .select("-__v")
         .populate({
           path: "user",
-          select: "name role",
+          select: "name",
         })
         .limit(Number(limit))
         .skip(Number(from)),
