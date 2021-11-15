@@ -1,0 +1,1 @@
+export { checkProductId } from "./checkProductMw";

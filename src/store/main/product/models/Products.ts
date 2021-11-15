@@ -38,4 +38,18 @@ export class Products {
   public async deleteProduct(id: string, user: string): Promise<Product> {
     return await ProductDb.findByIdAndUpdate(id, {status: false, user}, { new: true });
   }
+
+  public async getProductById(id: string): Promise<Product> {
+    return await ProductDb.findById(id)
+                          .select("-__v")
+                          .populate({
+                            path: "user",
+                            select: "name",
+                          })
+                          .populate({
+                            path: "category",
+                            select: "name",
+                          });
+  }
+
 }

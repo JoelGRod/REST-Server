@@ -14,7 +14,7 @@ import {
   validateJWTId,
   validateJWTRole,
 } from "../../../shared/middlewares";
-// import { checkCategory } from "../shared/middlewares/checkCategory";
+import { checkProductId } from "./middlewares";
 // Controllers
 import { 
     createController,
@@ -37,17 +37,15 @@ productRouter.get(
   readController.readAllProducts);
 
 // Get one product - id
-// productRouter.get(
-//   "/:id", 
-//   [
-//     validateJWT,
-//     validateJWTId,
-//     check("id", "Id must be Provided")
-//       .notEmpty().isMongoId(),
-//     lastValidator,
-//     checkCategory
-//   ], 
-//   readController.readOneCategory);
+productRouter.get(
+  "/:id", 
+  [
+    check("id", "Id must be Provided")
+      .notEmpty().isMongoId(),
+    lastValidator,
+    checkProductId
+  ], 
+  readController.readOneProduct);
 
 // Create product
 productRouter.post(
