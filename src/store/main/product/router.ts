@@ -5,7 +5,8 @@ import { check } from "express-validator";
 import { 
   categoryExistsById, 
   categoryNotExistsByName,
-  productNotExistsByName 
+  productNotExistsByName,
+  productExistsById
 } from "../shared/validators";
 // Middlewares
 import {
@@ -68,20 +69,26 @@ productRouter.post(
 );
 
 // Modify product
-// productRouter.put(
-//   "/:id", 
-//   [
-//     validateJWT,
-//     validateJWTId,
-//     validateJWTRole("ADMIN_ROLE"),
-//     check("id", "Id must be Provided")
-//       .notEmpty().isMongoId().custom(categoryExistsById),
-//     check("name", "Name is Required")
-//       .notEmpty().custom(categoryNotExistsByName),
-//     lastValidator,
-//   ], 
-//   updateController.updateCategory
-// );
+productRouter.put(
+  "/:id", 
+  [
+    validateJWTRole("ADMIN_ROLE"),
+    check("id", "Id must be Provided")
+      .notEmpty().isMongoId().custom(productExistsById),
+    check("name", "Name cannot be empty")
+      .notEmpty().custom(productNotExistsByName).optional(),
+    check("price", "Price must be a number")
+      .notEmpty().isNumeric().optional(),
+    check("description", "Description must be a String")
+      .notEmpty().isString().optional(),
+    check("available", "Available must be a boolean")
+      .notEmpty().isBoolean().optional(),
+    check("category", "Category cannot be empty")
+      .notEmpty().isMongoId().custom(categoryExistsById).optional(),
+    lastValidator,
+  ], 
+  updateController.updateProduct
+);
 
 // Delete product
 // productRouter.delete(

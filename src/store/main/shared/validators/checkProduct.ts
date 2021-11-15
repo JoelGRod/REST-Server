@@ -8,10 +8,10 @@ export const productExistsById = async ( id: string ) => {
 
 export const productNotExistsByName = async ( name: string ) => {
     name = name.toUpperCase();
-    const category = await ProductDb.findOne({ name }) 
+    const product = await ProductDb.findOne({ name }) 
                     ? true 
                     : false;
-    if(category) throw new Error("Product name exists");
+    if(product) throw new Error("Product name exists");
     return true;
 }
 

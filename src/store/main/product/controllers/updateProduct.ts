@@ -3,16 +3,24 @@ import { Products } from "../models/Products";
 // Interfaces
 import { Request, Response } from "express";
 
-export const updateCategory = async (req: Request, res: Response) => {
+export const updateProduct = async (req: Request, res: Response) => {
   try {
 
     const { id } = req.params;
-    const name = req.body.name.toUpperCase();
-    const { uid: user } = req.body;
+    let { name } = req.body;
+    const { 
+      uid: user,
+      price, 
+      description, 
+      available, 
+      category
+    } = req.body;
+    
+    if( name ) name = name.toUpperCase();
 
     const products = new Products();
     const productDb  = await products.updateProduct( 
-      id, { user, name } 
+      id, { user, name, price, description, available, category } 
     );
 
     return res.status(201).json({
