@@ -1,10 +1,10 @@
 import { ProductDb } from "../dbModels";
 
-// export const categoryExistsById = async ( id: string ) => {
-//     const category = await CategoryDb.findById(id) ? true : false;
-//     if(category) return true;
-//     throw new Error("The provided category id does not exist");
-// }
+export const productExistsById = async ( id: string ) => {
+    const product = await ProductDb.findById(id) ? true : false;
+    if(product) return true;
+    throw new Error("The provided product id does not exist");
+}
 
 export const productNotExistsByName = async ( name: string ) => {
     name = name.toUpperCase();

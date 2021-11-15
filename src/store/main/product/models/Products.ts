@@ -15,11 +15,15 @@ export class Products {
           path: "user",
           select: "name",
         })
+        .populate({
+          path: "category",
+          select: "name",
+        })
         .limit(Number(limit))
         .skip(Number(from)),
     ]);
     return { total, products };
-  }
+  } // v
 
   public async saveProduct(productData: ProductData): Promise<Product> {
     const newProduct = new ProductDb(productData);

@@ -27,22 +27,14 @@ import {
 const productRouter = Router();
 
 // Get all products
-// productRouter.get(
-//   "/", 
-//   [
-//     validateJWT,
-//     validateJWTId,
-//     check("limit", "Limit is Required").notEmpty(),
-//     check("from", "From is Required").notEmpty(),
-//     lastValidator,
-//   ], 
-//   readController.readAllCategories);
 productRouter.get(
-  "/", ( req: any, res: any ) => {
-    res.json({
-      body: req.body
-    })
-  });
+  "/", 
+  [
+    check("limit", "Limit is Required").notEmpty(),
+    check("from", "From is Required").notEmpty(),
+    lastValidator,
+  ], 
+  readController.readAllProducts);
 
 // Get one product - id
 // productRouter.get(
