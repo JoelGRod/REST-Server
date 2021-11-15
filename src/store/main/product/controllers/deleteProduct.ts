@@ -12,7 +12,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
     const products = new Products();
     const productDb = await products.deleteProduct( id, user );
 
-    return res.status(201).json({
+    return res.status(202).json({
       ok: true,
       productDb
     });

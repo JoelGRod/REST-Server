@@ -23,7 +23,7 @@ export const updateProduct = async (req: Request, res: Response) => {
       id, { user, name, price, description, available, category } 
     );
 
-    return res.status(201).json({
+    return res.status(202).json({
       ok: true,
       productDb
     });

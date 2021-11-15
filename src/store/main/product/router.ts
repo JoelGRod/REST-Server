@@ -3,16 +3,13 @@ import { Router } from "express";
 import { check } from "express-validator";
 // Validators
 import { 
-  categoryExistsById, 
-  categoryNotExistsByName,
+  categoryExistsById,
   productNotExistsByName,
   productExistsById
 } from "../shared/validators";
 // Middlewares
 import {
   lastValidator,
-  validateJWT,
-  validateJWTId,
   validateJWTRole,
 } from "../../../shared/middlewares";
 import { checkProductId } from "./middlewares";
@@ -91,18 +88,16 @@ productRouter.put(
 );
 
 // Delete product
-// productRouter.delete(
-//   "/:id", 
-//   [
-//     validateJWT,
-//     validateJWTId,
-//     validateJWTRole("ADMIN_ROLE"),
-//     check("id", "Id must be Provided")
-//       .notEmpty().isMongoId(),
-//     lastValidator,
-//     checkCategory
-//   ], 
-//   deleteController.deleteCategory
-// );
+productRouter.delete(
+  "/:id", 
+  [
+    validateJWTRole("ADMIN_ROLE"),
+    check("id", "Id must be Provided")
+      .notEmpty().isMongoId(),
+    lastValidator,
+    checkProductId
+  ], 
+  deleteController.deleteProduct
+);
 
 export default productRouter;

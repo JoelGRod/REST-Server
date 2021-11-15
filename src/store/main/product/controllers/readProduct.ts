@@ -11,7 +11,7 @@ export const readAllProducts = async (req: Request, res: Response) => {
     const products = new Products();
     const productsDb = await products.getAllProducts( from, limit ); 
 
-    return res.status(201).json({
+    return res.status(202).json({
       ok: true,
       productsDb,
     });
@@ -28,7 +28,7 @@ export const readOneProduct = async (req: Request, res: Response) => {
 
     const { productDb } = req.body;
 
-    return res.status(201).json({
+    return res.status(202).json({
       ok: true,
       productDb
     });
