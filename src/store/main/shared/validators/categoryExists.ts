@@ -11,7 +11,7 @@ export const categoryNotExistsByName = async ( name: string ) => {
     const category = await CategoryDb.findOne({ name }) 
                     ? true 
                     : false;
-    if(!category) return true;
-    throw new Error("Category name exists");
+    if(category) throw new Error("Category name exists");
+    return true;
 }
 
