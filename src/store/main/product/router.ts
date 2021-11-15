@@ -2,31 +2,32 @@
 import { Router } from "express";
 import { check } from "express-validator";
 // Validators
+import { 
+  categoryExistsById, 
+  categoryNotExistsByName,
+  productNotExistsByName 
+} from "../shared/validators";
 // Middlewares
-// import {
-//   lastValidator,
-//   validateJWT,
-//   validateJWTId,
-//   validateJWTRole,
-// } from "../../../shared/middlewares";
+import {
+  lastValidator,
+  validateJWT,
+  validateJWTId,
+  validateJWTRole,
+} from "../../../shared/middlewares";
 // import { checkCategory } from "../shared/middlewares/checkCategory";
 // Controllers
-// import { 
-//     createController,
-//     readController,
-//     updateController,
-//     deleteController
-// } from "./controllers";
-// import { 
-//   categoryExistsById, 
-//   categoryNotExistsByName 
-// } from "../shared/validators/categoryExists";
+import { 
+    createController,
+    readController,
+    updateController,
+    deleteController
+} from "./controllers";
 
 // Router instance
 const productRouter = Router();
 
 // Get all products
-// categoryRouter.get(
+// productRouter.get(
 //   "/", 
 //   [
 //     validateJWT,
@@ -43,8 +44,8 @@ productRouter.get(
     })
   });
 
-// Get one category - id
-// categoryRouter.get(
+// Get one product - id
+// productRouter.get(
 //   "/:id", 
 //   [
 //     validateJWT,
@@ -56,22 +57,28 @@ productRouter.get(
 //   ], 
 //   readController.readOneCategory);
 
-// Create category
-// categoryRouter.post(
-//   "/",
-//   [
-//     validateJWT,
-//     validateJWTId,
-//     validateJWTRole("ADMIN_ROLE"),
-//     check("name", "Name is Required")
-//       .notEmpty().custom(categoryNotExistsByName),
-//     lastValidator,
-//   ],
-//   createController.createCategory
-// );
+// Create product
+productRouter.post(
+  "/",
+  [
+    validateJWTRole("ADMIN_ROLE"),
+    check("name", "Name is Required")
+      .notEmpty().custom(productNotExistsByName),
+    check("price", "Price must be a number")
+      .notEmpty().isNumeric().optional(),
+    check("description", "Description must be a String")
+      .notEmpty().isString().optional(),
+    check("available", "Available must be a boolean")
+      .notEmpty().isBoolean().optional(),
+    check("category", "Category is Required")
+      .notEmpty().isMongoId().custom(categoryExistsById),
+    lastValidator,
+  ],
+  createController.createProduct
+);
 
-// Modify category
-// categoryRouter.put(
+// Modify product
+// productRouter.put(
 //   "/:id", 
 //   [
 //     validateJWT,
@@ -86,8 +93,8 @@ productRouter.get(
 //   updateController.updateCategory
 // );
 
-// Delete category
-// categoryRouter.delete(
+// Delete product
+// productRouter.delete(
 //   "/:id", 
 //   [
 //     validateJWT,

@@ -2,12 +2,18 @@
 import { Router } from "express";
 import { check } from "express-validator";
 // Validators
+import { 
+  categoryExistsById, 
+  categoryNotExistsByName 
+} from "../shared/validators";
 // Middlewares
 import {
   lastValidator,
   validateJWTRole,
 } from "../../../shared/middlewares";
-import { checkCategory } from "../shared/middlewares/checkCategory";
+import { 
+  checkCategory 
+} from "../shared/middlewares/checkCategory";
 // Controllers
 import { 
     createController,
@@ -15,10 +21,6 @@ import {
     updateController,
     deleteController
 } from "./controllers";
-import { 
-  categoryExistsById, 
-  categoryNotExistsByName 
-} from "../shared/validators/categoryExists";
 
 // Router instance
 const categoryRouter = Router();

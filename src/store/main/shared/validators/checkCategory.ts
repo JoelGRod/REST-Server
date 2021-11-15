@@ -3,7 +3,7 @@ import { CategoryDb } from "../dbModels";
 export const categoryExistsById = async ( id: string ) => {
     const category = await CategoryDb.findById(id) ? true : false;
     if(category) return true;
-    throw new Error("The provided id does not exist");
+    throw new Error("The provided category id does not exist");
 }
 
 export const categoryNotExistsByName = async ( name: string ) => {
