@@ -28,10 +28,10 @@ export class Categories {
   }
 
   public async updateCategory(id: string, categoryData: CategoryData): Promise<Category> {
-    return await CategoryDb.findByIdAndUpdate(id, categoryData);
+    return await CategoryDb.findByIdAndUpdate(id, categoryData, { new: true });
   }
 
   public async deleteCategory(id: string, user: string): Promise<Category> {
-    return await CategoryDb.findByIdAndUpdate(id, {status: false, user});
+    return await CategoryDb.findByIdAndUpdate(id, {status: false, user}, { new: true });
   }
 }
