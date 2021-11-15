@@ -5,8 +5,6 @@ import { check } from "express-validator";
 // Middlewares
 import {
   lastValidator,
-  validateJWT,
-  validateJWTId,
   validateJWTRole,
 } from "../../../shared/middlewares";
 import { checkCategory } from "../shared/middlewares/checkCategory";
@@ -29,8 +27,6 @@ const categoryRouter = Router();
 categoryRouter.get(
   "/", 
   [
-    validateJWT,
-    validateJWTId,
     check("limit", "Limit is Required").notEmpty(),
     check("from", "From is Required").notEmpty(),
     lastValidator,
@@ -41,8 +37,6 @@ categoryRouter.get(
 categoryRouter.get(
   "/:id", 
   [
-    validateJWT,
-    validateJWTId,
     check("id", "Id must be Provided")
       .notEmpty().isMongoId(),
     lastValidator,
@@ -54,8 +48,6 @@ categoryRouter.get(
 categoryRouter.post(
   "/",
   [
-    validateJWT,
-    validateJWTId,
     validateJWTRole("ADMIN_ROLE"),
     check("name", "Name is Required")
       .notEmpty().custom(categoryNotExistsByName),
@@ -68,8 +60,6 @@ categoryRouter.post(
 categoryRouter.put(
   "/:id", 
   [
-    validateJWT,
-    validateJWTId,
     validateJWTRole("ADMIN_ROLE"),
     check("id", "Id must be Provided")
       .notEmpty().isMongoId().custom(categoryExistsById),
@@ -84,8 +74,6 @@ categoryRouter.put(
 categoryRouter.delete(
   "/:id", 
   [
-    validateJWT,
-    validateJWTId,
     validateJWTRole("ADMIN_ROLE"),
     check("id", "Id must be Provided")
       .notEmpty().isMongoId(),
