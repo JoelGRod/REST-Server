@@ -47,6 +47,16 @@ productRouter.get(
   ], 
   readController.readOneProduct);
 
+// Search product
+productRouter.get(
+  "/search/:searchTerm", 
+  [
+    check("searchTerm", "The search term must be valid")
+      .isString(),
+    lastValidator
+  ], 
+  readController.searchProduct);
+
 // Create product
 productRouter.post(
   "/",

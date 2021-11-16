@@ -23,13 +23,13 @@ export class Products {
         .skip(Number(from)),
     ]);
     return { total, products };
-  } // v
+  }
 
   public async saveProduct(productData: ProductData): Promise<Product> {
     const newProduct = new ProductDb(productData);
     await newProduct.save();
     return newProduct;
-  } // v
+  }
 
   public async updateProduct(id: string, productData: ProductData): Promise<Product> {
     return await ProductDb.findByIdAndUpdate(id, productData, { new: true });
@@ -37,19 +37,6 @@ export class Products {
 
   public async deleteProduct(id: string, user: string): Promise<Product> {
     return await ProductDb.findByIdAndUpdate(id, {status: false, user}, { new: true });
-  }
-
-  public async getProductById(id: string): Promise<Product> {
-    return await ProductDb.findById(id)
-                          .select("-__v")
-                          .populate({
-                            path: "user",
-                            select: "name",
-                          })
-                          .populate({
-                            path: "category",
-                            select: "name",
-                          });
   }
 
 }

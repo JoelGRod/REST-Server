@@ -1,5 +1,5 @@
 // Models
-import { Products } from "../models/Products";
+import { Products } from "../models";
 // Interfaces
 import { Request, Response } from "express";
 

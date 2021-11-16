@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Products } from "../models/Products";
+import { Searchs } from "../models";
 
 export const checkProductId = async (
   req: Request,
@@ -7,8 +7,8 @@ export const checkProductId = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
-  const products = new Products();
-  const product = await products.getProductById(id);
+  const searchs = new Searchs();
+  const product = await searchs.getProductById(id);
   if (!product || !product.status)
     return res.status(404).json({
       ok: false,
