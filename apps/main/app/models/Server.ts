@@ -10,6 +10,7 @@ import testRouter from "../../../../src/test/main/router";
 import userRouter from "../../../../src/user/main/router";
 import authRouter from "../../../../src/auth/main/router";
 import storeRouter from "../../../../src/store/main/router";
+import servicesRouter from "../../../../src/services/main/router";
 
 class Server {
   // Singleton
@@ -46,6 +47,7 @@ class Server {
     this._app.use("/api/user", userRouter);
     this._app.use("/api/auth", authRouter);
     this._app.use("/api/store", storeRouter);
+    this._app.use("/api/services", servicesRouter);
   }
 
   // Middlewares
