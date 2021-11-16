@@ -18,20 +18,22 @@ export class Searchs {
 
     const regex = new RegExp(searchTerm, "i");
     return await CategoryDb.find({
-      $or: [{ name: regex }],
-      $and: [{ status: true }],
-    })
-      .select("-__v")
-      .populate({
-        path: "user",
-        select: "name",
-      });
+                              $or: [{ name: regex }],
+                              $and: [{ status: true }],
+                            })
+                            .select("-__v")
+                            .populate({
+                              path: "user",
+                              select: "name",
+                            });
   }
 
   public async getCategoryById(id: string): Promise<Category> {
-    return await CategoryDb.findById(id).select("-__v").populate({
-      path: "user",
-      select: "name",
-    });
+    return await CategoryDb.findById(id)
+                           .select("-__v")
+                           .populate({
+                              path: "user",
+                              select: "name",
+                           });
   }
 }

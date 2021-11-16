@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Categories } from "../models";
+import { Searchs } from "../models";
 
 export const checkCategoryId = async (
   req: Request,
@@ -7,8 +7,8 @@ export const checkCategoryId = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
-  const categories = new Categories();
-  const category = await categories.getCategoryById(id);
+  const searchs = new Searchs();
+  const category = await searchs.getCategoryById(id);
   if (!category || !category.status)
     return res.status(404).json({
       ok: false,
