@@ -1,5 +1,5 @@
 // Models
-import { Categories } from "../models/Categories";
+import { Categories } from "../models";
 // Interfaces
 import { Request, Response } from "express";
 

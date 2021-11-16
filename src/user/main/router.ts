@@ -64,6 +64,8 @@ userRouter.get(
 userRouter.get(
   "/search/:searchTerm",
   [
+    validateJWT,
+    validateJWTId,
     check("searchTerm", "The search term must be valid")
       .isString(),
     lastValidator,

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Categories } from "../models/Categories";
+import { Categories } from "../models";
 
 export const checkCategoryId = async (
   req: Request,

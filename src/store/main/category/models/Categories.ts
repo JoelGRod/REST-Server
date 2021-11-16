@@ -35,6 +35,7 @@ export class Categories {
     return await CategoryDb.findByIdAndUpdate(id, {status: false, user}, { new: true });
   }
 
+  // Search Logic (remove from here)
   public async getCategoryById(id: string): Promise<Category> {
     return await CategoryDb.findById(id)
                            .select("-__v")

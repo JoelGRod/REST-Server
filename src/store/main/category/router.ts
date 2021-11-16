@@ -46,6 +46,16 @@ categoryRouter.get(
   ], 
   readController.readOneCategory);
 
+// Search category
+categoryRouter.get(
+  "/search/:searchTerm", 
+  [
+    check("searchTerm", "The search term must be valid")
+      .isString(),
+    lastValidator
+  ], 
+  readController.searchCategory);
+
 // Create category
 categoryRouter.post(
   "/",

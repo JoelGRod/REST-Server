@@ -1,5 +1,5 @@
 // Models
-import { Categories } from "../models/Categories";
+import { Categories, Searchs } from "../models";
 // Interfaces
 import { Request, Response } from "express";
 
@@ -39,3 +39,24 @@ export const readOneCategory = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const searchCategory = async (req: Request, res: Response) => {
+  try {
+
+    const { searchTerm } = req.params;
+
+    const searchs = new Searchs();
+    const results = await searchs.searchCategory(searchTerm);
+
+    return res.status(201).json({
+      ok: true,
+      results
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      msg: "Please, Contact the Administrator",
+    });
+  }
+};
+
