@@ -1,5 +1,5 @@
 // Models
-import { User } from "../../../shared/dbModels";
+import { UserDb } from "../../../shared/dbModels";
 // Interfaces
 import { Request, Response } from "express";
 
@@ -8,7 +8,7 @@ export const createUser = async (req: Request, res: Response) => {
         const { name, email, password } = req.body;
         const role = "USER_ROLE";
 
-        const userDb = new User({name, email, password, role});
+        const userDb = new UserDb({name, email, password, role});
         
         await userDb.save();
         return res.status(201).json({

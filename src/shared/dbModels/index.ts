@@ -1,4 +1,4 @@
-import Role from "./Role";
-import User from "./User";
+import RoleDb from "./Role";
+import UserDb from "./User";
 
-export { Role, User };
+export { RoleDb, UserDb };

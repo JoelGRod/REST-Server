@@ -60,6 +60,16 @@ userRouter.get(
   readController.getUsers
 );
 
+// Search Users
+userRouter.get(
+  "/search/:searchTerm",
+  [
+    check("searchTerm", "The search term must be valid")
+      .isString(),
+    lastValidator,
+  ], 
+  readController.searchUser);
+
 /** ------------ Update ------------ */
 // Update User Info (4)
 userRouter.put(
