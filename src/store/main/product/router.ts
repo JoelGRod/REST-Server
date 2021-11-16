@@ -12,7 +12,9 @@ import {
   lastValidator,
   validateJWTRole,
 } from "../../../shared/middlewares";
-import { checkProductId } from "./middlewares";
+import { 
+  checkProductId 
+} from "./middlewares";
 // Controllers
 import { 
     createController,

@@ -34,4 +34,13 @@ export class Categories {
   public async deleteCategory(id: string, user: string): Promise<Category> {
     return await CategoryDb.findByIdAndUpdate(id, {status: false, user}, { new: true });
   }
+
+  public async getCategoryById(id: string): Promise<Category> {
+    return await CategoryDb.findById(id)
+                           .select("-__v")
+                           .populate({
+                             path: "user",
+                             select: "name",
+                           });
+  }
 }

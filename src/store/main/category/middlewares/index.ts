@@ -1,0 +1,1 @@
+export { checkCategoryId } from "./checkCategoryId"

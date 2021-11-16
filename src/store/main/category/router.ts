@@ -12,8 +12,8 @@ import {
   validateJWTRole,
 } from "../../../shared/middlewares";
 import { 
-  checkCategory 
-} from "../shared/middlewares/checkCategory";
+  checkCategoryId 
+} from "./middlewares";
 // Controllers
 import { 
     createController,
@@ -42,7 +42,7 @@ categoryRouter.get(
     check("id", "Id must be Provided")
       .notEmpty().isMongoId(),
     lastValidator,
-    checkCategory
+    checkCategoryId
   ], 
   readController.readOneCategory);
 
@@ -80,7 +80,7 @@ categoryRouter.delete(
     check("id", "Id must be Provided")
       .notEmpty().isMongoId(),
     lastValidator,
-    checkCategory
+    checkCategoryId
   ], 
   deleteController.deleteCategory
 );

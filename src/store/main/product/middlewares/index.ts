@@ -1,1 +1,1 @@
-export { checkProductId } from "./checkProductMw";
+export { checkProductId } from "./checkProductId";

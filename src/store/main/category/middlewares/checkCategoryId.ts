@@ -1,16 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { CategoryDb } from "../dbModels";
+import { Categories } from "../models/Categories";
 
-export const checkCategory = async (
+export const checkCategoryId = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const { id } = req.params;
-  const category = await CategoryDb.findById(id).populate({
-    path: "user",
-    select: "name",
-  });
+  const categories = new Categories();
+  const category = await categories.getCategoryById(id);
   if (!category || !category.status)
     return res.status(404).json({
       ok: false,
