@@ -2,6 +2,9 @@
 import { Router } from "express";
 import { check } from "express-validator";
 // Validators
+import { 
+  checkFileExists
+} from "./middlewares";
 // Middlewares
 import {
   lastValidator,
@@ -22,7 +25,9 @@ const uploadsRouter = Router();
 // Create
 uploadsRouter.post(
     "/", 
-    [], 
+    [
+      checkFileExists
+    ], 
     createController.createResource
 );
 
