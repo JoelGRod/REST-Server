@@ -1,7 +1,7 @@
 // Model
-import User from "../../../shared/dbModels/User";
+import { UserDb } from "../../../shared/dbModels";
 
 export const emailExists = async ( email: string ) => {
-    const emailExists = await User.findOne({ email });
+    const emailExists = await UserDb.findOne({ email });
     if( emailExists ) throw new Error("Email Exists");
 }

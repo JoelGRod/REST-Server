@@ -1,7 +1,7 @@
 // Interfaces
 import { NextFunction, Request, Response } from "express";
 // Modules
-import User from "../dbModels/User";
+import { UserDb } from "../dbModels";
 
 export const validateJWTId = async (
   req: Request,
@@ -9,7 +9,7 @@ export const validateJWTId = async (
   next: NextFunction
 ) => {
   const { uid } = req.body;
-  const userDb = await User.findById(uid);
+  const userDb = await UserDb.findById(uid);
   if (!userDb || !userDb.status)
     return res.status(401).json({
       ok: false,

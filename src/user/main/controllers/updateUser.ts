@@ -1,5 +1,5 @@
 // Models
-import User from "../../../shared/dbModels/User";
+import { UserDb } from "../../../shared/dbModels";
 // Interfaces
 import { Request, Response } from "express";
 
@@ -9,9 +9,9 @@ export const updateInfo = async ( req: Request, res: Response ) => {
             uid, name, img, email, role 
         } = req.body;
 
-        await User.findByIdAndUpdate( 
+        await UserDb.findByIdAndUpdate( 
             uid, { name, img, email, role });
-        const userDb = await User.findById( uid );
+        const userDb = await UserDb.findById( uid );
 
         return res.status(200).json({
             ok: true,
@@ -30,7 +30,7 @@ export const updatePassword = async ( req: Request, res: Response ) => {
     try {
         const { uid, password } = req.body;
 
-        await User.findByIdAndUpdate( uid, { password } );
+        await UserDb.findByIdAndUpdate( uid, { password } );
 
         return res.status(200).json({
             ok: true,
