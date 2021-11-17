@@ -13,7 +13,6 @@ Starter REST server
     * Mongo Atlas connection URL
 * Install node dependency packages: npm install
 * Transpile typescript code using tsc
-* Create file upload folder at dist folder: dist/src/services/main/uploads/repository
 
 ### Endpoints:
 https://documenter.getpostman.com/view/7455569/UVBzpAB9

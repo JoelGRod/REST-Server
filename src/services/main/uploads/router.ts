@@ -24,11 +24,11 @@ const uploadsRouter = Router();
 
 // Create
 uploadsRouter.post(
-    "/", 
+    "/img",
     [
       checkFileExists
     ], 
-    createController.createResource
+    createController.saveImage
 );
 
 // Modify
