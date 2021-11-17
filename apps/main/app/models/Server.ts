@@ -1,6 +1,7 @@
 // External Packages
 import express from "express";
 import cors from "cors";
+import fileUpload from "express-fileupload";
 // Interfaces
 import { Request, Response } from "express";
 // Db
@@ -57,6 +58,11 @@ class Server {
     // Bodyparser
     this._app.use(express.json());
     this._app.use(express.urlencoded({ extended: true }));
+    // File Upload
+    this._app.use(fileUpload({
+      useTempFiles : true,
+      tempFileDir : '/tmp/'
+    }));
   }
 
   private definePublic(): void {
