@@ -1,5 +1,5 @@
 // Model DB
-import { ProductDb } from "../../shared/dbModels";
+import { ProductDb } from "../../../../shared/dbModels";
 // Interfaces
 import { Product, ProductsDb, ProductData } from "../interfaces/Product";
 

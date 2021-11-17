@@ -1,5 +1,5 @@
 // Model DB
-import { CategoryDb } from "../../shared/dbModels";
+import { CategoryDb } from "../../../../shared/dbModels";
 // Interfaces
 import { CategoriesDb, Category, CategoryData } from "../interfaces/Category";
 

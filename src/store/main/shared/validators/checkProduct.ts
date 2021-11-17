@@ -1,4 +1,4 @@
-import { ProductDb } from "../dbModels";
+import { ProductDb } from "../../../../shared/dbModels";
 
 export const productExistsById = async ( id: string ) => {
     const product = await ProductDb.findById(id) ? true : false;

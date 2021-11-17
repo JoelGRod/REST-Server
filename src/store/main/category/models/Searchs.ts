@@ -1,6 +1,6 @@
 import { isValidObjectId } from "mongoose";
 // Models DB
-import { CategoryDb } from "../../shared/dbModels";
+import { CategoryDb } from "../../../../shared/dbModels";
 // Interfaces
 import { Category } from "../interfaces/Category";
 
