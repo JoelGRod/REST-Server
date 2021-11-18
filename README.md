@@ -21,9 +21,13 @@ Extras:
 
 ## Usage:
 
-* Create .env file and set:
+* Create .env file and set (see .env.dist for more details):
     * Development port
     * Mongo Atlas connection URL
+    * Secret (jsonwebtokens)
+    * Google Cloud project ID
+    * Google secret (not actually used)
+    * Cloudinary URL
 * Install node dependency packages: npm install
 * Transpile typescript code using tsc
 
