@@ -6,8 +6,9 @@ export interface ProductsDb {
 export interface Product {
     _id: string;
     name: string;
+    img?: string;
     price: number;
-    description: string;
+    description?: string;
     available: boolean;
     category: string;
     status: boolean;
@@ -16,6 +17,7 @@ export interface Product {
 
 export interface ProductData {
     name?: string;
+    img?: string;
     price?: number;
     description?: string;
     available?: boolean;

@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import {
     removeImg,
     uploadImg
-} from "../../../shared/helpers"
+} from "../../../shared/helpers";
 
 export const updateInfo = async ( req: Request, res: Response ) => {
     try {
@@ -29,7 +29,7 @@ export const updateInfo = async ( req: Request, res: Response ) => {
             msg: "Please, Contact the Administrator"
         });
     }
-}
+};
 
 export const updatePassword = async ( req: Request, res: Response ) => {
     try {
@@ -48,7 +48,7 @@ export const updatePassword = async ( req: Request, res: Response ) => {
             msg: "Please, contact the Administrator"
         });
     }
-}
+};
 
 export const updateImg = async( req: Request, res: Response ) => {
     try {
@@ -77,4 +77,4 @@ export const updateImg = async( req: Request, res: Response ) => {
             msg: "Please, contact the Administrator"
         });
     }
-}
+};

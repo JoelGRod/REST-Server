@@ -9,6 +9,7 @@ import {
 } from "../shared/validators";
 // Middlewares
 import {
+  checkFileExists,
   lastValidator,
   validateJWTRole,
 } from "../../../shared/middlewares";
@@ -98,6 +99,18 @@ productRouter.put(
   ], 
   updateController.updateProduct
 );
+
+// Update product main Img - Cloudinary
+productRouter.put(
+  "/update-img/:id",
+  [
+    check("id", "Id must be Provided")
+      .notEmpty().isMongoId().custom(productExistsById),
+    lastValidator,
+    checkFileExists
+  ],
+  updateController.updateImg
+)
 
 // Delete product
 productRouter.delete(

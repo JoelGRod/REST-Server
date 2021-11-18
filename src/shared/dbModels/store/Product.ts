@@ -6,6 +6,9 @@ const ProductSchema = new Schema({
         required: [true, "Name is Required"],
         unique: true
     },
+    img: {
+        type: String
+    },
     price: {
         type: Number,
         default: 0

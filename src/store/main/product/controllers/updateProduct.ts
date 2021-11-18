@@ -1,7 +1,13 @@
 // Models
-import { Products } from "../models";
+import { Products, Searchs } from "../models";
 // Interfaces
 import { Request, Response } from "express";
+// Helpers
+import {
+  removeImg,
+  uploadImg
+} from "../../../../shared/helpers"
+import { ProductDb } from "../../../../shared/dbModels";
 
 export const updateProduct = async (req: Request, res: Response) => {
   try {
@@ -34,3 +40,35 @@ export const updateProduct = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const updateImg = async( req: Request, res: Response ) => {
+  try {
+      const searchs = new Searchs();
+      const products = new Products();
+      
+      const { id } = req.params;
+      const productDb = await searchs.getProductById(id);
+      const folder: string = "REST_SERVER/products";
+
+      // Delete last img
+      if(productDb.img) removeImg(productDb.img, folder);
+      // Upload img
+      const { tempFilePath } = <any>req.files!.file;
+      const secure_url = await uploadImg( tempFilePath, folder);
+
+      productDb.img = secure_url;
+      await products.updateProduct(id, productDb);
+
+      return res.status(200).json({
+          ok: true,
+          msg: "Img uploaded and Updated",
+          link: secure_url
+      });
+      
+  } catch (error) {
+      return res.status(500).json({
+          ok: false,
+          msg: "Please, contact the Administrator"
+      });
+  }
+}
