@@ -6,8 +6,7 @@ import { Request, Response } from "express";
 import {
   removeImg,
   uploadImg
-} from "../../../../shared/helpers"
-import { ProductDb } from "../../../../shared/dbModels";
+} from "../../../../shared/helpers";
 
 export const updateProduct = async (req: Request, res: Response) => {
   try {
