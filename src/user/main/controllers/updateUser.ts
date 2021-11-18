@@ -2,9 +2,11 @@
 import { UserDb } from "../../../shared/dbModels";
 // Interfaces
 import { Request, Response } from "express";
-// Services
-const cloudinary = require('cloudinary').v2;
-cloudinary.config( process.env.CLOUDINARY_URL );
+// Helpers
+import {
+    removeImg,
+    uploadImg
+} from "../../../shared/helpers"
 
 export const updateInfo = async ( req: Request, res: Response ) => {
     try {
@@ -52,18 +54,13 @@ export const updateImg = async( req: Request, res: Response ) => {
     try {
         const { uid } = req.body;
         const userDb = await UserDb.findById(uid);
+        const folder: string = "REST_SERVER/users";
 
         // Delete last img
-        if(userDb.img) {
-            const [ img ] = userDb.img.split("/").slice(-1);
-            const [ name ] = img.split(".");
-            const resp = await cloudinary.uploader.destroy( `REST_SERVER/users/${name}` );
-        }
-
+        if(userDb.img) removeImg(userDb.img, folder);
+        // Upload img
         const { tempFilePath } = <any>req.files!.file;
-        const { secure_url } = await cloudinary.uploader.upload( 
-            tempFilePath, 
-            { resource_type: "image", folder: "REST_SERVER/users" });
+        const secure_url = await uploadImg( tempFilePath, folder);
 
         userDb.img = secure_url;
         userDb.save();
