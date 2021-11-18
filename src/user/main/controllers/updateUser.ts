@@ -57,13 +57,13 @@ export const updateImg = async( req: Request, res: Response ) => {
         if(userDb.img) {
             const [ img ] = userDb.img.split("/").slice(-1);
             const [ name ] = img.split(".");
-            cloudinary.uploader.destroy( name );
+            const resp = await cloudinary.uploader.destroy( `REST_SERVER/users/${name}` );
         }
 
         const { tempFilePath } = <any>req.files!.file;
         const { secure_url } = await cloudinary.uploader.upload( 
             tempFilePath, 
-            { folder: "REST_SERVER/users" });
+            { resource_type: "image", folder: "REST_SERVER/users" });
 
         userDb.img = secure_url;
         userDb.save();
