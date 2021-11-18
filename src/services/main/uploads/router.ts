@@ -1,13 +1,13 @@
 // External Packages
 import { Router } from "express";
-import { check } from "express-validator";
 // Validators
 import { 
   checkFileExists
 } from "./middlewares";
 // Middlewares
 import {
-  lastValidator,
+  validateJWT,
+  validateJWTId,
   validateJWTRole,
 } from "../../../shared/middlewares";
 // Controllers
@@ -26,6 +26,9 @@ const uploadsRouter = Router();
 uploadsRouter.post(
     "/img",
     [
+      validateJWT,
+      validateJWTId,
+      validateJWTRole("ADMIN_ROLE"),
       checkFileExists
     ], 
     createController.saveImage

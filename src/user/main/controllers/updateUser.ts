@@ -2,6 +2,9 @@
 import { UserDb } from "../../../shared/dbModels";
 // Interfaces
 import { Request, Response } from "express";
+// Services
+const cloudinary = require('cloudinary').v2;
+cloudinary.config( process.env.CLOUDINARY_URL );
 
 export const updateInfo = async ( req: Request, res: Response ) => {
     try {
@@ -37,6 +40,40 @@ export const updatePassword = async ( req: Request, res: Response ) => {
             msg: "Password Updated"
         });
 
+    } catch (error) {
+        return res.status(500).json({
+            ok: false,
+            msg: "Please, contact the Administrator"
+        });
+    }
+}
+
+export const updateImg = async( req: Request, res: Response ) => {
+    try {
+        const { uid } = req.body;
+        const userDb = await UserDb.findById(uid);
+
+        // Delete last img
+        if(userDb.img) {
+            const [ img ] = userDb.img.split("/").slice(-1);
+            const [ name ] = img.split(".");
+            cloudinary.uploader.destroy( name );
+        }
+
+        const { tempFilePath } = <any>req.files!.file;
+        const { secure_url } = await cloudinary.uploader.upload( 
+            tempFilePath, 
+            { folder: "REST_SERVER/users" });
+
+        userDb.img = secure_url;
+        userDb.save();
+
+        return res.status(200).json({
+            ok: true,
+            msg: "Img uploaded and Updated",
+            link: secure_url
+        });
+        
     } catch (error) {
         return res.status(500).json({
             ok: false,

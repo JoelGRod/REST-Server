@@ -13,7 +13,8 @@ import {
   lastValidator,
   validateJWT,
   validateJWTId,
-  validateJWTRole
+  validateJWTRole,
+  checkFileExists
 } from "../../shared/middlewares";
 import {
   encryptPassword,
@@ -95,6 +96,17 @@ userRouter.put(
   ],
   updateController.updateInfo
 );
+
+// Update User Profile Img - Cloudinary
+userRouter.put(
+  "/update/img",
+  [
+    validateJWT,
+    validateJWTId,
+    checkFileExists
+  ],
+  updateController.updateImg
+)
 
 // Update User Info By Admin (5)
 userRouter.put(
