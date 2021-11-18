@@ -29,7 +29,7 @@ export const saveFile = (
     file.mv(uploadPath, (err: any) => {
       if (err) return reject("Please, Contact the Administrator");
 
-      return resolve(`File uploaded: ${fileName}`);
+      return resolve(fileName);
     });
   });
 };

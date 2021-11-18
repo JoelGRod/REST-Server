@@ -31,7 +31,7 @@ uploadsRouter.post(
     createController.saveImage
 );
 
-// Modify
+// Update
 
 // Delete
 
