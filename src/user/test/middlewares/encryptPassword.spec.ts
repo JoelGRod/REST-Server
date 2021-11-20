@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { encryptPassword } from "../../main/middlewares";
 
-describe('Name of the group', () => {
+describe('User Domain - Middlewares - encryptPassword', () => {
     let mockRequest: Partial<Request>;
     let mockResponse: Partial<Response>;
     let nextFunction: NextFunction = jest.fn();
