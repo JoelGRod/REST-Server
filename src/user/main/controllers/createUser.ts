@@ -11,6 +11,7 @@ export const createUser = async (req: Request, res: Response) => {
         const userDb = new UserDb({name, email, password, role});
         
         await userDb.save();
+        
         return res.status(201).json({
             ok: true,
             userDb
