@@ -1,16 +1,7 @@
+// Test focus
 import { equalPasswords, checkDbPwd } from "../../main/validators/checkPwd";
-import { encrypt } from "../../../shared/main/helpers/crypt";
-
-const requestObject = {
-    req: {
-        body: {
-          loggedUser: {
-            password: encrypt("123456"),
-          },
-          repeatPwd: "123456",
-        }
-    }
-};
+// Data
+import { requestObject } from "../mock-data/requestObject"
 
 describe("User Domain - Validators - checkPwd", () => {
   test("equalPasswords should return true if passwords (pwd and repeatPwd) are equals", () => {

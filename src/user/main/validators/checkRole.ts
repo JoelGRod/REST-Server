@@ -7,7 +7,7 @@ export const checkDbRole = async ( role: string ) => {
     throw new Error("Invalid Role");
 }
 
-export const checkAdminRole = async ( role: string, { req }: any) => {
+export const checkAdminRole = ( role: string, { req }: any) => {
     const { loggedUser } = req.body;
 
     if( loggedUser.role === "ADMIN_ROLE" ) return true;
