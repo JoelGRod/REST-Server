@@ -10,7 +10,7 @@ import {
 import {
   lastValidator,
   validateJWTRole,
-} from "../../../shared/middlewares";
+} from "../../../shared/main/middlewares";
 import { 
   checkCategoryId 
 } from "./middlewares";

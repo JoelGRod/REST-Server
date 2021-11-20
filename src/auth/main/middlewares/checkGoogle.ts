@@ -4,7 +4,7 @@ import { OAuth2Client } from "google-auth-library";
 import { NextFunction, Request, Response } from "express";
 import { GoogleToken } from "../interfaces/GoogleToken-interface";
 // Models
-import { UserDb } from "../../../shared/dbModels";
+import { UserDb } from "../../../shared/main/dbModels";
 
 export const checkGoogleToken = async (
   req: Request,

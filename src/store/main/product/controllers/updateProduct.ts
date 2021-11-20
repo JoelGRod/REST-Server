@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import {
   removeImg,
   uploadImg
-} from "../../../../shared/helpers";
+} from "../../../../shared/main/helpers";
 
 export const updateProduct = async (req: Request, res: Response) => {
   try {

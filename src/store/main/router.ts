@@ -7,7 +7,7 @@ import productRouter from "./product/router";
 import { 
     validateJWT, 
     validateJWTId 
-} from "../../shared/middlewares";
+} from "../../shared/main/middlewares";
 
 // Router instance
 const storeRouter = Router();

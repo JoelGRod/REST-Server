@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { encrypt } from "../../../shared/helpers/crypt";
+import { encrypt } from "../../../shared/main/helpers/crypt";
 
 export const encryptPassword = (req: Request, res: Response, next: NextFunction) => {
   const { password } = req.body;

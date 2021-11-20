@@ -7,7 +7,7 @@ import uploadsRouter from "./uploads/router";
 import { 
     validateJWT, 
     validateJWTId 
-} from "../../shared/middlewares";
+} from "../../shared/main/middlewares";
 
 // Router instance
 const servicesRouter = Router();

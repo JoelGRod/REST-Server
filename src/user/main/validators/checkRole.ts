@@ -1,5 +1,5 @@
 // Models
-import { RoleDb } from "../../../shared/dbModels";
+import { RoleDb } from "../../../shared/main/dbModels";
 
 export const checkDbRole = async ( role: string ) => {
     const validRole = await RoleDb.findOne({ role });

@@ -1,4 +1,4 @@
-import { UserDb } from "../../../shared/dbModels";
+import { UserDb } from "../../../shared/main/dbModels";
 
 export class Users {
   public constructor() {}

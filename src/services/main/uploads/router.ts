@@ -9,7 +9,7 @@ import {
   validateJWT,
   validateJWTId,
   validateJWTRole,
-} from "../../../shared/middlewares";
+} from "../../../shared/main/middlewares";
 // Controllers
 import { createController } from "./controllers";
 

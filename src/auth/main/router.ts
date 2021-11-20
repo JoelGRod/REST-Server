@@ -3,7 +3,7 @@ import { check } from "express-validator";
 // Validators
 // Middlewares
 import { checkUser, checkGoogleToken, checkGoogleUser } from "./middlewares";
-import { lastValidator } from "../../shared/middlewares";
+import { lastValidator } from "../../shared/main/middlewares";
 // Controllers
 import { authController } from "./controllers";
 // Router Instance

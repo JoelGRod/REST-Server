@@ -1,5 +1,5 @@
 import { isValidObjectId } from "mongoose";
-import { UserDb } from "../../../shared/dbModels";
+import { UserDb } from "../../../shared/main/dbModels";
 
 export class Searchs {
     public constructor() {}

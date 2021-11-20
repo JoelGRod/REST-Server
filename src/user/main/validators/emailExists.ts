@@ -1,5 +1,5 @@
 // Model
-import { UserDb } from "../../../shared/dbModels";
+import { UserDb } from "../../../shared/main/dbModels";
 
 export const emailExists = async ( email: string ) => {
     const emailExists = await UserDb.findOne({ email });

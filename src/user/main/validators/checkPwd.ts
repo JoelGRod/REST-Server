@@ -1,4 +1,4 @@
-import { compareCrypt } from "../../../shared/helpers/crypt";
+import { compareCrypt } from "../../../shared/main/helpers/crypt";
 
 export const equalPasswords = ( password: string, { req }: any ) => {
     if(!req.body.repeatPwd) 

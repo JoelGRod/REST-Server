@@ -1,5 +1,5 @@
 import { checkId } from "../../main/validators";
-import { UserDb } from "../../../shared/dbModels";
+import { UserDb } from "../../../shared/main/dbModels";
 
 describe("Domain User - Validators - checkId", () => {
     // State

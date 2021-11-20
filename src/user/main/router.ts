@@ -15,7 +15,7 @@ import {
   validateJWTId,
   validateJWTRole,
   checkFileExists
-} from "../../shared/middlewares";
+} from "../../shared/main/middlewares";
 import {
   encryptPassword,
   switchIds

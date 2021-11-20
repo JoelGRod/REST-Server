@@ -1,4 +1,4 @@
-import { UserDb } from "../../../shared/dbModels";
+import { UserDb } from "../../../shared/main/dbModels";
 
 export const checkId = async ( uid: string ) => {
     const userDb = await UserDb.findById( uid );

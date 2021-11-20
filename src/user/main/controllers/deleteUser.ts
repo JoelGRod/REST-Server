@@ -1,5 +1,5 @@
 // Models
-import { UserDb } from "../../../shared/dbModels";
+import { UserDb } from "../../../shared/main/dbModels";
 // Interfaces
 import { Request, Response } from "express";
 

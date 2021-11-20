@@ -1,12 +1,12 @@
 // Models
-import { UserDb } from "../../../shared/dbModels";
+import { UserDb } from "../../../shared/main/dbModels";
 // Interfaces
 import { Request, Response } from "express";
 // Helpers
 import {
     removeImg,
     uploadImg
-} from "../../../shared/helpers";
+} from "../../../shared/main/helpers";
 
 export const updateInfo = async ( req: Request, res: Response ) => {
     try {

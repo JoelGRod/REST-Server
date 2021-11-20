@@ -1,4 +1,4 @@
-import { CategoryDb } from "../../../../shared/dbModels";
+import { CategoryDb } from "../../../../shared/main/dbModels";
 
 export const categoryExistsById = async ( id: string ) => {
     const category = await CategoryDb.findById(id) ? true : false;

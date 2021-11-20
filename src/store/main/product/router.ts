@@ -12,7 +12,7 @@ import {
   checkFileExists,
   lastValidator,
   validateJWTRole,
-} from "../../../shared/middlewares";
+} from "../../../shared/main/middlewares";
 import { 
   checkProductId 
 } from "./middlewares";

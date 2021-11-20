@@ -1,6 +1,6 @@
 import { isValidObjectId } from "mongoose";
 // Models DB
-import { ProductDb } from "../../../../shared/dbModels";
+import { ProductDb } from "../../../../shared/main/dbModels";
 // Interfaces
 import { Product } from "../interfaces/Product";
 

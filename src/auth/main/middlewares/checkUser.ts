@@ -1,9 +1,9 @@
 // Interfaces
 import { NextFunction, Request, Response } from "express";
 // Infrastructure
-import { compareCrypt } from "../../../shared/helpers/crypt";
+import { compareCrypt } from "../../../shared/main/helpers/crypt";
 // Models
-import { UserDb } from "../../../shared/dbModels";
+import { UserDb } from "../../../shared/main/dbModels";
 
 export const checkUser = async (req: Request, res: Response, next: NextFunction) => {
 
