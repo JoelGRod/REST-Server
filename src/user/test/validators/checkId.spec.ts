@@ -1,7 +1,7 @@
 import { checkId } from "../../main/validators";
 import { UserDb } from "../../../shared/main/dbModels";
 
-describe("Domain User - Validators - checkId", () => {
+describe("User Domain - Validators - checkId", () => {
     // State
     // Tests
     test("Returns true if userDb Exists and status is true", async () => {

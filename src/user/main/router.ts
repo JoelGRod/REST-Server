@@ -38,9 +38,12 @@ const userRouter = Router();
 userRouter.post(
   "/create",
   [
-    check("name", "Name is required").notEmpty().trim(),
-    check("email", "Email is required").isEmail().custom(emailExists),
-    check("password", "Password is required").isLength({ min: 6 }),
+    check("name", "Name is required")
+      .notEmpty().trim(),
+    check("email", "Email is required")
+      .isEmail().custom(emailExists),
+    check("password", "Password is required")
+      .isLength({ min: 6 }),
     lastValidator,
     encryptPassword,
   ],
@@ -53,9 +56,12 @@ userRouter.get(
   "/",
   [
     validateJWT,
-    check("uid", "Not a valid ID").isMongoId().custom(checkId),
-    check("limit", "Limit is required and must contain something").notEmpty(),
-    check("from", "From is required and must contain something").notEmpty(),
+    check("uid", "Not a valid ID")
+      .isMongoId().custom(checkId),
+    check("limit", "Limit is required and must contain something")
+      .notEmpty(),
+    check("from", "From is required and must contain something")
+      .notEmpty(),
     lastValidator,
   ],
   readController.getUsers
@@ -81,8 +87,10 @@ userRouter.put(
     validateJWT,
     validateJWTId,
     validateJWTRole("ADMIN_ROLE", "USER_ROLE"),
-    check("name", "Name is required").notEmpty().trim().optional(),
-    check("img", "The image cannot be empty").notEmpty().trim().optional(),
+    check("name", "Name is required")
+      .notEmpty().trim().optional(),
+    check("img", "The image cannot be empty")
+      .notEmpty().trim().optional(),
     check("email", "Email is required")
       .isEmail()
       .custom(emailExists)
@@ -115,9 +123,12 @@ userRouter.put(
     validateJWT,
     validateJWTId,
     validateJWTRole("ADMIN_ROLE"),
-    check("userUpdatedId", "Not a valid ID").isMongoId().custom(checkId),
-    check("name", "Name is required").notEmpty().trim().optional(),
-    check("img", "The image cannot be empty").notEmpty().trim().optional(),
+    check("userUpdatedId", "Not a valid ID")
+      .isMongoId().custom(checkId),
+    check("name", "Name is required")
+      .notEmpty().trim().optional(),
+    check("img", "The image cannot be empty")
+      .notEmpty().trim().optional(),
     check("email", "Email is required")
       .isEmail()
       .custom(emailExists)
@@ -139,6 +150,8 @@ userRouter.put(
     validateJWT,
     validateJWTId,
     validateJWTRole("ADMIN_ROLE", "USER_ROLE"),
+    check("repeatPwd", "No confirmation password supplied")
+      .notEmpty().isString(),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
@@ -160,7 +173,10 @@ userRouter.put(
     validateJWT,
     validateJWTId,
     validateJWTRole("ADMIN_ROLE"),
-    check("userUpdatedId", "Not a valid ID").isMongoId().custom(checkId),
+    check("userUpdatedId", "Not a valid ID")
+      .isMongoId().custom(checkId),
+    check("repeatPwd", "No confirmation password supplied")
+      .notEmpty().isString(),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
@@ -181,6 +197,8 @@ userRouter.put(
   [
     validateJWT,
     check("uid", "Not a valid ID").isMongoId().custom(checkId),
+    check("repeatPwd", "No confirmation password supplied")
+      .notEmpty().isString(),
     check("password", "Password is required")
       .isLength({ min: 6 })
       .custom(checkPwd.equalPasswords),
@@ -198,7 +216,8 @@ userRouter.delete(
     validateJWT,
     validateJWTId,
     validateJWTRole("ADMIN_ROLE"),
-    check("deleteId", "Not a valid ID").isMongoId().custom(checkId),
+    check("deleteId", "Not a valid ID")
+      .isMongoId().custom(checkId),
     lastValidator,
   ],
   deleteController.deleteUser

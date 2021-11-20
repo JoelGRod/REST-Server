@@ -1,8 +1,6 @@
 import { compareCrypt } from "../../../shared/main/helpers/crypt";
 
 export const equalPasswords = ( password: string, { req }: any ) => {
-    if(!req.body.repeatPwd) 
-        throw new Error("No confirmation password supplied");
     if( password === req.body.repeatPwd ) return true;
     throw new Error("Passwords not Equals");
 }
