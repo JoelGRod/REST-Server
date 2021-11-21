@@ -32,10 +32,14 @@ export const findById = async (
   client = dbClient,
   col = collection
 ) => {
-  const objectId = new ObjectId(uid);
-  const user = await client
-    .db()
-    .collection(col)
-    .findOne({ _id: objectId });
-  return new UserModel(user);
+  try {
+    const objectId = new ObjectId(uid);
+    const user = await client
+      .db()
+      .collection(col)
+      .findOne({ _id: objectId });
+    return new UserModel(user);
+  } catch (error) {
+    throw new Error("Invalid ID");
+  }
 };
