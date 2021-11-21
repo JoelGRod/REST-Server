@@ -5,7 +5,8 @@ import fileUpload from "express-fileupload";
 // Interfaces
 import { Request, Response } from "express";
 // Db
-import dbConnection from "../db/db.config";
+// import dbConnection from "../db/db.config";
+import dbConnection from "../db/mongoDb.config";
 // Domain Routers
 import testRouter from "../../../../src/test/main/router";
 import userRouter from "../../../../src/user/main/router";
