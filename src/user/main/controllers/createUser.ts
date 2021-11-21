@@ -9,6 +9,7 @@ export const createUser = async (req: Request, res: Response) => {
         const role = "USER_ROLE";
 
         const userDb = new UserDb({name, email, password, role});
+        console.log(userDb);
         
         await userDb.save();
         
