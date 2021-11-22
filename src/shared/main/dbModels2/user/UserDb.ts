@@ -1,8 +1,5 @@
-import { 
-    ObjectId, 
-    Document, 
-    MongoClient 
-} from "mongodb";
+import { ObjectId, Document, MongoClient } from "mongodb";
+import { UserData } from "../../interfaces";
 
 export class UserDB {
   private _client: MongoClient;
@@ -26,6 +23,38 @@ export class UserDB {
       return null;
     } catch (error) {
       throw new Error("Invalid ID");
+    }
+  };
+
+  public save = async (data: UserData): Promise<Document | null> => {
+    if (!data.status) data = { ...data, status: true };
+    if (!data.google) data = { ...data, google: false };
+    try {
+      const response = await this._client
+        .db()
+        .collection(this._col)
+        .insertOne({ ...data });
+      return await this.findById(String(response.insertedId));
+    } catch (error) {
+      throw new Error("Error saving user");
+    }
+  };
+
+  public findByIdAndUpdate = async (uid: string, data: UserData) => {
+    try {
+      let user = await this.findById(uid);
+      const objectId = new ObjectId(uid);
+      // TODO: DELETE UID
+      user = { ...user, ...data };
+      
+      console.log(user);
+      const response = await this._client
+        .db()
+        .collection(this._col)
+        .updateOne({ _id: objectId }, { $set: {...user} });
+        console.log(response);
+    } catch (error) {
+      throw new Error("Error updating user");
     }
   };
 }

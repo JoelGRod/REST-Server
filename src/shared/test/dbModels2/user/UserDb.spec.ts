@@ -1,10 +1,7 @@
 // Test
 import { UserDB } from "../../../main/dbModels2";
 // Db Test
-import {
-  dbClientTests,
-  dbTestsConnection,
-} from "../dbConnections";
+import { dbClientTests, dbTestsConnection } from "../dbConnections";
 
 describe("Shared Domain - dbModels - UserDb", () => {
   beforeAll(async () => {
@@ -23,7 +20,7 @@ describe("Shared Domain - dbModels - UserDb", () => {
   });
 
   test("findById with a valid ID should return a user from db", async () => {
-      // arrange
+    // arrange
     const uid = "618fc61c198f16d3b1a21157";
     const userDb = new UserDB(dbClientTests);
     // act
@@ -45,12 +42,40 @@ describe("Shared Domain - dbModels - UserDb", () => {
   });
 
   test("findById with an invalid ObjectID should return an error", async () => {
-      // arrange
+    // arrange
     const uid = "abc";
     const userDb = new UserDB(dbClientTests);
     // act & assert
-    await expect(userDb.findById(uid))
-      .rejects
-      .toThrowError("Invalid ID");
+    await expect(userDb.findById(uid)).rejects.toThrowError("Invalid ID");
+  });
+
+  test("save should create a new user", async () => {
+    // arrange
+    const newUser = {
+      name: "Test from Tests",
+      email: "TestMongo@mail.com",
+      password: "abc",
+      role: "USER_ROLE",
+    };
+    const userDb = new UserDB(dbClientTests);
+    userDb.save = jest.fn();
+    // act
+    await userDb.save(newUser);
+    // assert
+    expect(userDb.save).toHaveBeenCalledWith(newUser);
+  });
+
+  test("findByIdAndUpdate should update user by id", async () => {
+    // arrange
+    const uid = "618fc61c198f16d3b1a21157";
+    const updatedData = {
+      status: false,
+    };
+    const userDb = new UserDB(dbClientTests);
+    const user = await userDb.findByIdAndUpdate(uid, updatedData);
+    // act
+    
+    // assert
+    
   });
 });
