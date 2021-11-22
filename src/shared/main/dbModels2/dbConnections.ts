@@ -1,1 +1,3 @@
-export { dbClient } from "../../../../apps/main/app/db/mongoDb.config";
+export { 
+    dbClient 
+} from "../../../../apps/main/app/db/mongoDb.config";

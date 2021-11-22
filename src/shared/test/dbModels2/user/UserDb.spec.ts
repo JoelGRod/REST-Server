@@ -1,5 +1,5 @@
 // Test
-import { UserDb } from "../../../main/dbModels2";
+import { UserDB } from "../../../main/dbModels2";
 // Db Test
 import {
   dbClientTests,
@@ -25,28 +25,31 @@ describe("Shared Domain - dbModels - UserDb", () => {
   test("findById with a valid ID should return a user from db", async () => {
       // arrange
     const uid = "618fc61c198f16d3b1a21157";
+    const userDb = new UserDB(dbClientTests);
     // act
-    const userDb = await UserDb.findById(uid, dbClientTests);
+    const user = await userDb.findById(uid);
     // assert
-    expect(userDb).toBeInstanceOf(UserDb.UserModel);
-    expect(userDb.uid).toBeTruthy();
+    expect(userDb).toBeInstanceOf(UserDB);
+    expect(user).toBeTruthy();
   });
 
   test("findById with an invalid ID should return a null user from db", async () => {
-      // arrange
+    // arrange
     const uid = "618fc61c198f16d3b1a21158";
+    const userDb = new UserDB(dbClientTests);
     // act
-    const userDb = await UserDb.findById(uid, dbClientTests);
+    const user = await userDb.findById(uid);
     // assert
-    expect(userDb).toBeInstanceOf(UserDb.UserModel);
-    expect(userDb.uid).toBeFalsy();
+    expect(userDb).toBeInstanceOf(UserDB);
+    expect(user).toBeFalsy();
   });
 
   test("findById with an invalid ObjectID should return an error", async () => {
       // arrange
     const uid = "abc";
+    const userDb = new UserDB(dbClientTests);
     // act & assert
-    await expect(UserDb.findById(uid, dbClientTests))
+    await expect(userDb.findById(uid))
       .rejects
       .toThrowError("Invalid ID");
   });
