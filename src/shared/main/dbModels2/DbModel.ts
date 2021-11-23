@@ -24,7 +24,16 @@ export class DbModel {
       throw new Error(`Invalid data: ${error}`);
     } 
   }
-  // TODO: count({key: value}) - number
+
+  // Strict Query
+  public count = async ({ ...data }): Promise<Number> => {
+      try {
+        return await this._db.count({ ...data });
+      } catch (error) {
+        throw new Error(`Invalid data: ${error}`);
+      }
+  }
+  
   // TODO: find({key: value}) - document[] | []
 
   public saveDocument = async (data: any): Promise<Document | null> => {

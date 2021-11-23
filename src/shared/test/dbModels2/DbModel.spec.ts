@@ -129,4 +129,16 @@ describe("Shared Domain - dbModels - UserDb", () => {
     expect(dbModel).toBeInstanceOf(DbModel);
     expect(user).toBeFalsy();
   });
+
+  test("count should return the number of documents in a collection if data match", async () => {
+    // arrange
+    const email = "test@email.com";
+    const role = "ADMIN_ROLE";
+    // act
+    const counts = await dbModel
+        .count({ role, email });
+    // assert
+    expect(dbModel).toBeInstanceOf(DbModel);
+    expect(counts).toBe(1);
+  });
 });
