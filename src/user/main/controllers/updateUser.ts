@@ -14,9 +14,8 @@ export const updateInfo = async ( req: Request, res: Response ) => {
             uid, name, img, email, role 
         } = req.body;
 
-        await UserDb.findByIdAndUpdate( 
-            uid, { name, img, email, role });
-        const userDb = await UserDb.findById( uid );
+        const userDb = await UserDb.findByIdAndUpdate( 
+            uid, { name, img, email, role }, { new: true });
 
         return res.status(200).json({
             ok: true,

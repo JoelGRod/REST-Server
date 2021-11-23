@@ -1,6 +1,9 @@
-import { UserDB } from "./";
+// Connections
 import { dbClient } from "./dbConnections";
+// DbModel - DO - DAO
+import { DbModel } from './DbModel';
 
-export const createModel = (type: string) => {
-    if(type === "user") return new UserDB(dbClient);
+export const createModel = (collection: string) => {
+    if(collection === "users") 
+        return new DbModel(dbClient, collection);
 }
