@@ -33,8 +33,9 @@ export class DbModel {
         throw new Error(`Invalid data: ${error}`);
       }
   }
-  
+
   // TODO: find({key: value}) - document[] | []
+  
 
   public saveDocument = async (data: any): Promise<Document | null> => {
     try {

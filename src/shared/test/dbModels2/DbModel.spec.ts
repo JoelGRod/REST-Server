@@ -141,4 +141,15 @@ describe("Shared Domain - dbModels - UserDb", () => {
     expect(dbModel).toBeInstanceOf(DbModel);
     expect(counts).toBe(1);
   });
+
+  test("count should return the number 0 if data match doesn't match with any document", async () => {
+    // arrange
+    const role = "NO_ROLE";
+    // act
+    const counts = await dbModel
+        .count({ role });
+    // assert
+    expect(dbModel).toBeInstanceOf(DbModel);
+    expect(counts).toBe(0);
+  });
 });
