@@ -152,4 +152,23 @@ describe("Shared Domain - dbModels - UserDb", () => {
     expect(dbModel).toBeInstanceOf(DbModel);
     expect(counts).toBe(0);
   });
+
+  test("find should return documents in a collection that match", async () => {
+    // arrange
+    const role = "ADMIN_ROL";
+    // act
+    // const users = await dbModel
+    //     .find({ role });
+    const regex = new RegExp("test", "i");
+    const res = await dbModel
+        .find({
+          $or: [{ name: regex },{ email: regex }],
+          $and: [{status: false}]
+      });
+    const users = await res.toArray();
+    console.log(users);
+    // assert
+    // expect(dbModel).toBeInstanceOf(DbModel);
+    // expect(users).toBe(0);
+  });
 });

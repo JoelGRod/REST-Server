@@ -1,4 +1,10 @@
-import { ObjectId, Document, MongoClient, Collection } from "mongodb";
+import { 
+    ObjectId, 
+    Document, 
+    MongoClient, 
+    Collection, 
+    FindCursor
+} from "mongodb";
 
 export class DbModel {
   private _db: Collection;
@@ -35,7 +41,13 @@ export class DbModel {
   }
 
   // TODO: find({key: value}) - document[] | []
-  
+  public find = async ({ ...data }): Promise<FindCursor<Document>> => {
+      try {
+        return await this._db.find({ ...data });
+      } catch (error) {
+        throw new Error(`Invalid data: ${error}`);
+      }
+  }
 
   public saveDocument = async (data: any): Promise<Document | null> => {
     try {
