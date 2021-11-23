@@ -106,15 +106,31 @@ describe("Shared Domain - dbModels - UserDb", () => {
         .rejects.toThrowError();
   });
 
-  test("findOne should return a Document", async () => {
+  test("findOne should return a Document if strict data is ok", async () => {
     // arrange
     const search = {name: "test"};
+    const email = "test@email.com";
+    const role = "ADMIN_ROLE";
     // act
     const user = await dbModel
-        .findOne(search);
+        .findOne({email, role});
     // assert
     console.log(user);
     expect(dbModel).toBeInstanceOf(DbModel);
     expect(user).toBeTruthy();
+  });
+
+  test("findOne should return null if strict data is wrong", async () => {
+    // arrange
+    const search = {name: "test"};
+    const email = "no-email@email.com";
+    const role = "ADMIN_ROLE";
+    // act
+    const user = await dbModel
+        .findOne({email, role});
+    // assert
+    console.log(user);
+    expect(dbModel).toBeInstanceOf(DbModel);
+    expect(user).toBeFalsy();
   });
 });

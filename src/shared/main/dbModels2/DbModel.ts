@@ -16,7 +16,7 @@ export class DbModel {
     }
   };
 
-  // TODO: findOne({key: value}) - document | null
+  // Strict Query
   public findOne = async ({ ...data }): Promise<Document | null> => {
     try {
       return await this._db.findOne({ ...data });
