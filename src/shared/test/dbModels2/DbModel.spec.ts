@@ -105,4 +105,16 @@ describe("Shared Domain - dbModels - UserDb", () => {
     await expect(dbModel.findByIdAndUpdate(uid, updatedData))
         .rejects.toThrowError();
   });
+
+  test("findOne should return a Document", async () => {
+    // arrange
+    const search = {name: "test"};
+    // act
+    const user = await dbModel
+        .findOne(search);
+    // assert
+    console.log(user);
+    expect(dbModel).toBeInstanceOf(DbModel);
+    expect(user).toBeTruthy();
+  });
 });
