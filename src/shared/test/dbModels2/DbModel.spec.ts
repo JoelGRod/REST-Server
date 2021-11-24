@@ -39,7 +39,6 @@ describe("Shared Domain - dbModels - UserDb", () => {
     // act
     const user = await dbModel.findById(uid);
     // assert
-    expect(dbModel).toBeInstanceOf(DbModel);
     expect(user).toBeFalsy();
   });
 
@@ -77,7 +76,6 @@ describe("Shared Domain - dbModels - UserDb", () => {
     const updatedUser = await dbModel
         .findByIdAndUpdate(uid, updatedData);
     // assert
-    expect(dbModel).toBeInstanceOf(DbModel);
     expect(updatedUser).toBeTruthy();
   });
 
@@ -91,7 +89,6 @@ describe("Shared Domain - dbModels - UserDb", () => {
     const updatedUser = await dbModel
         .findByIdAndUpdate(uid, updatedData);
     // assert
-    expect(dbModel).toBeInstanceOf(DbModel);
     expect(updatedUser).toBeFalsy();
   });
 
@@ -114,7 +111,6 @@ describe("Shared Domain - dbModels - UserDb", () => {
     const user = await dbModel
         .findOne({email, role});
     // assert
-    expect(dbModel).toBeInstanceOf(DbModel);
     expect(user).toBeTruthy();
   });
 
@@ -126,7 +122,6 @@ describe("Shared Domain - dbModels - UserDb", () => {
     const user = await dbModel
         .findOne({email, role});
     // assert
-    expect(dbModel).toBeInstanceOf(DbModel);
     expect(user).toBeFalsy();
   });
 
@@ -138,7 +133,6 @@ describe("Shared Domain - dbModels - UserDb", () => {
     const counts = await dbModel
         .count({ role, email });
     // assert
-    expect(dbModel).toBeInstanceOf(DbModel);
     expect(counts).toBe(1);
   });
 
@@ -149,26 +143,23 @@ describe("Shared Domain - dbModels - UserDb", () => {
     const counts = await dbModel
         .count({ role });
     // assert
-    expect(dbModel).toBeInstanceOf(DbModel);
     expect(counts).toBe(0);
   });
 
   test("find should return documents in a collection that match", async () => {
     // arrange
-    const role = "ADMIN_ROL";
+    // const role = "ADMIN_ROL";
+    const regex = new RegExp("test", "i");
     // act
     // const users = await dbModel
     //     .find({ role });
-    const regex = new RegExp("test", "i");
     const res = await dbModel
         .find({
           $or: [{ name: regex },{ email: regex }],
           $and: [{status: false}]
       });
     const users = await res.toArray();
-    console.log(users);
     // assert
-    // expect(dbModel).toBeInstanceOf(DbModel);
-    // expect(users).toBe(0);
+    expect(users).toBeTruthy();
   });
 });
