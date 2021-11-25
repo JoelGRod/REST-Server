@@ -1,14 +1,11 @@
 // External Packages
 import { Router } from "express";
-// Controllers
-import * as responses from "./controllers/responses";
+// Domain Modules Routers
+import moduleRouter from "./module/application/router";
 // Router instance
 const testRouter = Router();
 
 // Routes
-testRouter.get("/", [], responses.getRequest);
-testRouter.post("/", [], responses.postRequest);
-testRouter.put("/:id", [], responses.putRequest);
-testRouter.delete("/", [], responses.deleteRequest);
+testRouter.use("/", [], moduleRouter);
 
 export default testRouter;
